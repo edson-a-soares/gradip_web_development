@@ -16,17 +16,17 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
-
             <properties>
-                <db.encoding>UTF-8</db.encoding>
-                <db.password>postgres</db.password>
-                <db.dbms.name>postgres</db.dbms.name>
-                <db.username>database_manager</db.username>
-                <db.driver>org.postgresql.Driver</db.driver>
-                <db.url>jdbc:postgresql://localhost:5432/books_management</db.url>
+                <env.filename>dev</env.filename>
+                <database.tasks.skip>true</database.tasks.skip>
+            </properties>
+        </profile>
 
-                <env.name>dev</env.name>
-                <maven.test.skip>true</maven.test.skip>
+        <profile>
+            <id>ci</id>
+            <properties>
+                <env.filename>dev</env.filename>
+                <database.tasks.skip>true</database.tasks.skip>
             </properties>
         </profile>
     </profiles>
@@ -82,6 +82,26 @@
         <finalName>gradip-jpa-app</finalName>
 
         <plugins>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>read-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <files>
+                                <file>src/main/resources/environments/${env.filename}.properties</file>
+                            </files>
+                            <injectAllReactorProjects>true</injectAllReactorProjects>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -161,7 +181,7 @@
                     <password>${db.password}</password>
                     <username>${db.username}</username>
                     <!--all executions are ignored if -Dmaven.test.skip=true-->
-                    <skip>${maven.test.skip}</skip>
+                    <skip>${database.tasks.skip}</skip>
                 </configuration>
 
                 <executions>
@@ -174,6 +194,34 @@
                         <configuration>
                             <srcFiles>
                                 <srcFile>${basedir}/database/scripts/create_changelog_table.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>truncate-tables</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>${basedir}/database/scripts/truncate_tables.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>drop-tables</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>${basedir}/database/scripts/drop_tables.sql</srcFile>
                             </srcFiles>
                         </configuration>
                     </execution>
@@ -192,20 +240,6 @@
                                     <include>001InsertBooksSample.sql</include>
                                 </includes>
                             </fileset>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id>empty-database</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <autocommit>true</autocommit>
-                            <srcFiles>
-                                <srcFile>${basedir}/database/scripts/empty_database.sql</srcFile>
-                            </srcFiles>
                         </configuration>
                     </execution>
 
@@ -228,7 +262,7 @@
 
                 <configuration>
                     <url>${db.url}</url>
-                    <dbms>${db.dbms.name}</dbms>
+                    <dbms>${db.type}</dbms>
                     <driver>${db.driver}</driver>
                     <userid>${db.username}</userid>
                     <password>${db.password}</password>
