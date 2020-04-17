@@ -7,7 +7,7 @@
 
     <groupId>br.uece.ees</groupId>
     <artifactId>gradip-jpa-app</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>war</packaging>
 
     <profiles>
@@ -97,10 +97,25 @@
                             <files>
                                 <file>src/main/resources/environments/${env.filename}.properties</file>
                             </files>
-                            <injectAllReactorProjects>true</injectAllReactorProjects>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>src/main/webapp</directory>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -123,14 +138,31 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-help-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>show-profiles</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>active-profiles</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- Frontend Settings -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.9.1</version>
+
                 <configuration>
                     <workingDirectory>frontend</workingDirectory>
                 </configuration>
+
                 <executions>
                     <execution>
                         <id>install node and npm</id>
@@ -142,6 +174,7 @@
                             <nodeVersion>v9.11.2</nodeVersion>
                         </configuration>
                     </execution>
+
                     <execution>
                         <id>npm install</id>
                         <goals>
@@ -180,7 +213,7 @@
                     <encoding>${db.encoding}</encoding>
                     <password>${db.password}</password>
                     <username>${db.username}</username>
-                    <!--all executions are ignored if -Dmaven.test.skip=true-->
+                    <!--all executions are ignored if -Ddatabase.tasks.skip=false-->
                     <skip>${database.tasks.skip}</skip>
                 </configuration>
 
@@ -237,7 +270,7 @@
                             <fileset>
                                 <basedir>${basedir}/database/sample_data</basedir>
                                 <includes>
-                                    <include>001InsertBooksSample.sql</include>
+                                    <include>*.sql</include>
                                 </includes>
                             </fileset>
                         </configuration>
@@ -269,9 +302,9 @@
 
                     <delimiter>;</delimiter>
                     <delimiterType>row</delimiterType>
-                    <scriptdirectory>${basedir}/database/migrations</scriptdirectory>
                     <outputfile>apply.sql</outputfile>
                     <undoOutputfile>undo.sql</undoOutputfile>
+                    <scriptdirectory>${basedir}/database/migrations</scriptdirectory>
                 </configuration>
 
                 <dependencies>
@@ -286,6 +319,33 @@
                         <version>3.0M3</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+
+            <!-- Docker Settings -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+
+                <executions>
+                    <execution>
+                        <id>docker-package</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>docker</executable>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <arguments>
+                                <argument>build</argument>
+                                <argument>.</argument>
+                                <argument>-t</argument>
+                                <argument>${project.artifactId}:${project.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
