@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.uece.ees</groupId>
+    <artifactId>gradip-jpa-app</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <profiles>
+        <profile>
+            <id>development</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+                <db.encoding>UTF-8</db.encoding>
+                <db.password>postgres</db.password>
+                <db.dbms.name>postgres</db.dbms.name>
+                <db.username>database_manager</db.username>
+                <db.driver>org.postgresql.Driver</db.driver>
+                <db.url>jdbc:postgresql://localhost:5432/books_management</db.url>
+
+                <env.name>dev</env.name>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <!-- Basic Java Tools -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JPA/Hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.14.Final</version>
+        </dependency>
+
+        <!-- Driver JDBC do banco de dados PostgreSQL -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.12</version>
+        </dependency>
+
+        <!-- DBDeploy/Migrations -->
+        <dependency>
+            <groupId>com.dbdeploy</groupId>
+            <artifactId>maven-dbdeploy-plugin</artifactId>
+            <version>3.0M3</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <finalName>gradip-jpa-app</finalName>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <warName>${project.build.finalName}</warName>
+                </configuration>
+            </plugin>
+
+            <!-- Frontend Settings -->
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <configuration>
+                    <workingDirectory>frontend</workingDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <nodeVersion>v9.11.2</nodeVersion>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>gulp</id>
+                        <goals>
+                            <goal>gulp</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <arguments>build</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Database/Schema Settings -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+
+                <!-- common configuration shared by all executions -->
+                <configuration>
+                    <url>${db.url}</url>
+                    <driver>${db.driver}</driver>
+                    <delimiterType>row</delimiterType>
+                    <encoding>${db.encoding}</encoding>
+                    <password>${db.password}</password>
+                    <username>${db.username}</username>
+                    <!--all executions are ignored if -Dmaven.test.skip=true-->
+                    <skip>${maven.test.skip}</skip>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>create-changelog-table</id>
+                        <phase>process-test-sources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <srcFiles>
+                                <srcFile>${basedir}/database/scripts/create_changelog_table.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>load-sample-data</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <orderFile>ascending</orderFile>
+                            <fileset>
+                                <basedir>${basedir}/database/sample_data</basedir>
+                                <includes>
+                                    <include>001InsertBooksSample.sql</include>
+                                </includes>
+                            </fileset>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>empty-database</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>${basedir}/database/scripts/empty_database.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+
+                </executions>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>9.1-901.jdbc4</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <!-- DBDeploy/Migrations Settings -->
+            <plugin>
+                <groupId>com.dbdeploy</groupId>
+                <artifactId>maven-dbdeploy-plugin</artifactId>
+                <version>3.0M3</version>
+
+                <configuration>
+                    <url>${db.url}</url>
+                    <dbms>${db.dbms.name}</dbms>
+                    <driver>${db.driver}</driver>
+                    <userid>${db.username}</userid>
+                    <password>${db.password}</password>
+
+                    <delimiter>;</delimiter>
+                    <delimiterType>row</delimiterType>
+                    <scriptdirectory>${basedir}/database/migrations</scriptdirectory>
+                    <outputfile>apply.sql</outputfile>
+                    <undoOutputfile>undo.sql</undoOutputfile>
+                </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>9.1-901.jdbc4</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.dbdeploy</groupId>
+                        <artifactId>dbdeploy-core</artifactId>
+                        <version>3.0M3</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
