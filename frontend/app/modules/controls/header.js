@@ -3,8 +3,9 @@ define([
     'modules/controls/header.view'
 ], function (Application, HeaderView) {
 
-    var HeaderModuleLoader = Marionette.Object.extend({
-        initialize: function(options) {
+    const HeaderModuleLoader = Marionette.Object.extend({
+
+        initialize: function (options) {
 
             var headerView = new HeaderView();
 
@@ -13,7 +14,9 @@ define([
             });
 
             Application.headerRegion.show(headerView);
+
         }
+
     });
 
     return new HeaderModuleLoader();

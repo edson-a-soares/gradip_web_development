@@ -2,35 +2,82 @@ define([
     'application',
     'modules/books/list.view',
     'modules/books/repository'
-], function (Application, BooksListView, BooksRepository) {
+], function (Application, BooksListView, repository ) {
 
-    var BooksModuleLoader = Marionette.Object.extend({
-        initialize: function(options) {
+    const BooksModuleLoader = Marionette.Object.extend({
+
+        initialize: function (options) {
 
             Application.on("books:create", function (options) {
                 require([
                     "modules/books/create.view"
-                ], function (BooksCreateView) {
-                    var createView = new BooksCreateView();
-                    createView.on("data:submit", function (data) {
-                        console.log(data);
+                ], function (BookCreateView) {
 
-                        $.when(BooksRepository.add(data))
+                    const createView = new BookCreateView();
+                    createView.on("data:submit", function (payload) {
+                        $.when(repository.add(payload))
                             .done(function (xhr) {})
                             .fail(function (xhr) {});
                         createView.trigger("dialog:close");
                     });
                     Application.dialogRegion.show(createView);
+
                 })
             });
 
-            Application.mainRegion.show(new BooksListView());
+            Application.on("books:edit", function (options) {
+                require([
+                    'modules/books/edit.view'
+                ], function (BookEditView) {
 
-            Application.on("books:edit", function (options) {});
+                    const editView = new BookEditView();
+                    $.when(repository.bookOf("9c09c073bb84" /* options.bookId */))
+                        .done(function (aBook) {
+                            editView.model = aBook;
+                            Application.dialogRegion.show(editView);
+                        });
 
-            Application.on("books:remove", function (options) {});
+                    editView.on("data:submit", function (payload) {
+                        $.when(repository.add(payload))
+                            .done(function (xhr) {})
+                            .fail(function (xhr) {});
+                        editView.trigger("dialog:close");
+                    });
+
+                })
+            });
+
+            Application.on("books:remove", function (options) {
+
+                require([
+                    'modules/books/delete.view'
+                ], function (BookDeleteView) {
+
+                    const deleteView = new BookDeleteView();
+                    $.when(repository.bookOf("9c09c073bb84" /* options.bookId */))
+                        .done(function (aBook) {
+                            deleteView.model = aBook;
+                            Application.dialogRegion.show(deleteView);
+                        });
+
+                    deleteView.on("data:submit", function (payload) {
+                        $.when(repository.remove(payload.identity))
+                            .done(function (xhr) {})
+                            .fail(function (xhr) {});
+                        deleteView.trigger("dialog:close");
+                    });
+
+                })
+
+            });
+
+            $.when(repository.allBooks())
+                .done(function (aCollection) {
+                    Application.mainRegion.show(new BooksListView({ collection : aCollection }));
+                });
 
         }
+
     });
 
     return new BooksModuleLoader();

@@ -6,7 +6,7 @@ define([
     "components/notification.region"
 ], function(Marionette, _, Environment, DialogRegion, NotificationRegion) {
 
-    var Application = new Marionette.Application();
+    const Application = new Marionette.Application();
 
     Application.State       = Backbone.Events;
     Application.Environment = JSON.parse(Environment);
@@ -31,13 +31,12 @@ define([
     });
 
     Application.on("start", function () {
-        _.templateSettings = { interpolate: /\{\{(.+?)\}\}/g };
         if(Backbone.history) {
             require([
                 "modules/books/books",
                 "modules/controls/header"
             ], function () {
-                if (!Backbone.history.start()) {}
+                Backbone.history.start();
             });
         }
     });

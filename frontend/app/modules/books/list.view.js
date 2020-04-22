@@ -1,12 +1,15 @@
 define([
     "application",
     "underscore",
-    "text!modules/books/templates/list.html"
-], function (Application, _, template) {
+    'text!modules/books/templates/table.html',
+    'text!modules/books/templates/table.row.html'
+], function (Application, _, tableTmpl, rowTmpl) {
 
-    return Marionette.LayoutView.extend({
+    const BookTableRowView = Marionette.ItemView.extend({
 
-        template: _.template(template),
+        tagName : 'tr',
+
+        template: _.template(rowTmpl),
 
         events: {
             "click .edit" : "editBook",
@@ -20,6 +23,20 @@ define([
         removeBook: function () {
             Application.trigger("books:remove");
         }
+
+    });
+
+    return Marionette.CompositeView.extend({
+
+        tagName: 'table',
+
+        className: 'table table-striped table-hover',
+
+        template: _.template(tableTmpl),
+
+        childView: BookTableRowView,
+
+        childViewContainer: 'tbody'
 
     });
 
