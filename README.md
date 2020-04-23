@@ -12,8 +12,8 @@ To make the application available just do as follows:
 	- ```docker-compose up database webapp -d```
 	2. Data Scheme (tables):  
 		- ```mvn initialize sql:execute@create-changelog-table -Ddatabase.tasks.skip=false```
-		- ```mvn initialize sql:execute@load-sample-data -Ddatabase.tasks.skip=false```
-		- ```mvn initialize dbdepoy:update```  
+        - ```mvn initialize dbdeploy:update```
+		- ```mvn initialize sql:execute@load-sample-data -Ddatabase.tasks.skip=false```  
 3. [Open the application on your browser.](http://localhost:8080/gradip-jpa-app)
 
 ****
@@ -40,7 +40,7 @@ If you want to follow straight on **Postgres**, you can use **PgAdmin**.
 
 Maven goals (specific tasks) for applying data migrations:
 
- - ```mvn initialize dbdepoy:update```
+ - ```mvn initialize dbdeploy:update```
 
 Other Maven goals for database tasks:
 
