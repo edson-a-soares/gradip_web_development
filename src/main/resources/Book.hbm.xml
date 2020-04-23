@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-access="field" default-cascade="all">
+    <class name="br.uece.ees.jpaapp.domain.model.Book" table="books" lazy="true">
+        <id name="identity" type="java.lang.String" column="book_id" unsaved-value="-1">
+            <generator class="uuid"/>
+        </id>
+        <property name="title" column="title" type="java.lang.String" />
+        <property name="author" column="author" type="java.lang.String" />
+        <property name="summary" column="summary" type="java.lang.String" />
+        <property name="releaseYear" column="release_year" type="java.lang.String" />
+    </class>
+</hibernate-mapping>
