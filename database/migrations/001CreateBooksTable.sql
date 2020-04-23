@@ -3,7 +3,7 @@ CREATE TABLE books (
   title        VARCHAR(125) NOT NULL,
   author       VARCHAR(50)  NOT NULL,
   summary      TEXT NULL,
-  release_year CHAR(4) NOT NULL,
+  release_date CHAR(7) NOT NULL,
   PRIMARY KEY (book_id)
 );
 

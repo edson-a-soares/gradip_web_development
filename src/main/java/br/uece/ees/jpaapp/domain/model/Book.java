@@ -1,7 +1,8 @@
 package br.uece.ees.jpaapp.domain.model;
 
-import java.time.Year;
+import java.time.YearMonth;
 import java.util.UUID;
+
 import br.uece.ees.jpaapp.domain.model.common.Entity;
 
 public class Book extends Entity
@@ -10,29 +11,29 @@ public class Book extends Entity
     private final String title;
     private final String author;
     private final String summary;
-    private final String releaseYear;
+    private final String releaseDate;
 
     public Book()
     {
         title       = "";
         author      = "";
         summary     = "";
-        releaseYear = "";
+        releaseDate = "";
     }
 
-    public Book(String title, String author, String summary, String releaseYear) throws IllegalArgumentException
+    public Book(String title, String author, String summary, String releaseDate) throws IllegalArgumentException
     {
         super();
         this.title       = title;
         this.author      = author;
         this.summary     = summary;
-        this.releaseYear = releaseYear;
+        this.releaseDate = releaseDate;
     }
 
-    public Book(String identity, String title, String author, String summary, String releaseYear) throws IllegalArgumentException
+    public Book(String identity, String title, String author, String summary, String releaseDate) throws IllegalArgumentException
     {
-        Year year = Year.parse(releaseYear);
-        if (year.isAfter(Year.now()) || year.equals(Year.now()))
+        YearMonth yearMonth = YearMonth.parse(releaseDate);
+        if (yearMonth.isAfter(YearMonth.now()) || yearMonth.equals(YearMonth.now()))
             throw new IllegalArgumentException("");
 
         if (title.isEmpty() || title.length() > 125)
@@ -48,7 +49,7 @@ public class Book extends Entity
         this.title       = title;
         this.author      = author;
         this.summary     = summary;
-        this.releaseYear = releaseYear;
+        this.releaseDate = releaseDate;
     }
 
     public String getTitle()
@@ -66,9 +67,9 @@ public class Book extends Entity
         return summary;
     }
 
-    public String getReleaseYear()
+    public String getReleaseDate()
     {
-        return releaseYear;
+        return releaseDate;
     }
 
 }

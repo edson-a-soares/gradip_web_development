@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.mockito.invocation.InvocationOnMock;
 import br.uece.ees.jpaapp.application.BooksApplicationService;
 
-public class BooksEndpointTest {
+public class BooksEndpointTest
+{
 
     @Mock
     HttpServletRequest requestMock;
@@ -35,8 +36,8 @@ public class BooksEndpointTest {
     BooksEndpoint booksEndpoint;
 
     @Before
-    public void setUp() throws Exception {
-
+    public void setUp() throws Exception
+    {
         MockitoAnnotations.initMocks(this);
         booksEndpoint = new BooksEndpoint(booksServiceMock);
 
@@ -44,7 +45,7 @@ public class BooksEndpointTest {
             "   \"title\":\"Zero to One\"," +
             "   \"author\":\"Peter Thiel\"," +
             "   \"summary\":\"\"," +
-            "   \"releaseYear\":\"2008\"," +
+            "   \"releaseDate\":\"2008-05\"," +
             "   \"identity\":\"\"" +
             "}";
 
@@ -60,7 +61,6 @@ public class BooksEndpointTest {
             }
         });
         when(requestMock.getInputStream()).thenReturn(mockServletInputStream);
-
     }
 
     @Test
@@ -75,7 +75,7 @@ public class BooksEndpointTest {
                 "Zero to One",
                 "Peter Thiel",
                 "",
-                "2014"
+                "2014-05"
             ));
 
         StringWriter stringWriter = new StringWriter();
@@ -106,11 +106,11 @@ public class BooksEndpointTest {
 
         List<Book> booksList = new ArrayList<Book>();
 
-        booksList.add(new Book("595de998-611c-4565-8224-9c09c073bb84", "Zero to One", "Peter Thiel", "", "2014"));
-        booksList.add(new Book("98d12482-32cf-498d-91eb-2e8236235718", "The Lean Startup", "Eric Ries", "", "2011"));
-        booksList.add(new Book("c3c296b8-65c2-477e-9258-fc292f444981", "Running Lean", "Ash Maurya", "", "2012"));
-        booksList.add(new Book("a9dd409b-de3a-4536-af10-fce409b0ee29", "Business Model Generation", "Alexander Osterwalder", "", "2010"));
-        booksList.add(new Book("0a83eb86-1060-44d9-a07b-54a9ad0ba980", "Founders at Work", "Jessica Livingston", "", "2007"));
+        booksList.add(new Book("595de998-611c-4565-8224-9c09c073bb84", "Zero to One", "Peter Thiel", "", "2014-01"));
+        booksList.add(new Book("98d12482-32cf-498d-91eb-2e8236235718", "The Lean Startup", "Eric Ries", "", "2011-05"));
+        booksList.add(new Book("c3c296b8-65c2-477e-9258-fc292f444981", "Running Lean", "Ash Maurya", "", "2012-05"));
+        booksList.add(new Book("a9dd409b-de3a-4536-af10-fce409b0ee29", "Business Model Generation", "Alexander Osterwalder", "", "2010-04"));
+        booksList.add(new Book("0a83eb86-1060-44d9-a07b-54a9ad0ba980", "Founders at Work", "Jessica Livingston", "", "2007-05"));
 
         when(booksServiceMock.allBooks()).thenReturn(booksList);
 

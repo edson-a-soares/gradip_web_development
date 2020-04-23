@@ -1,52 +1,49 @@
 package br.uece.ees.jpaapp.domain.model;
 
-import java.time.Year;
 import java.util.UUID;
 import org.junit.Test;
+import java.time.YearMonth;
 import static org.junit.Assert.assertEquals;
 
-public class BookTest {
+public class BookTest
+{
 
     @Test
-    public void testIfBookIsTheSame() throws Exception {
-
-        Book firstBook  = new Book("Can't Hurt Me", "David Goggins", "", "2018");
-        Book secondBook = new Book("Can't Hurt Me", "David Goggins", "", "2018");
+    public void testIfBookIsTheSame() throws Exception
+    {
+        Book firstBook  = new Book("Can't Hurt Me", "David Goggins", "", "2018-01");
+        Book secondBook = new Book("Can't Hurt Me", "David Goggins", "", "2018-02");
         assertEquals(firstBook, secondBook);
-
     }
 
     @Test
-    public void testIfBookIsNew() throws Exception {
-
-        Book aBook = new Book("Can't Hurt Me", "David Goggins", "", "2018");
+    public void testIfBookIsNew() throws Exception
+    {
+        Book aBook = new Book("Can't Hurt Me", "David Goggins", "", "2018-01");
         assertEquals("-1", aBook.getIdentity());
-
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateBookWithInvalidID() throws Exception {
-
+    public void testCreateBookWithInvalidID() throws Exception
+    {
         new Book(UUID.randomUUID().toString().replaceAll("-", ""),
             "The Omen",
             "David Seltzer",
             "",
-            "2006"
+            "2006-01"
         );
-
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateBookWithInvalidReleaseYear() throws Exception {
-
+    public void testCreateBookWithInvalidReleaseYear() throws Exception
+    {
         Book aBook = new Book(
             UUID.randomUUID().toString(),
             "Extreme Ownership",
             "Jocko Willink",
             "",
-            Year.now().toString()
+            YearMonth.now().toString()
         );
-
     }
 
 }

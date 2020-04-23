@@ -12,10 +12,8 @@ define([
             title: payload.title,
             author: payload.author,
             summary: payload.summary,
-            release_date: payload.release_date
+            releaseDate: payload.releaseDate
         };
-
-        console.log(dataObject);
 
         $.ajax({
             url: Application.getURI('/books'),
@@ -43,7 +41,7 @@ define([
                 title: data.title,
                 author: data.author,
                 summary: data.summary,
-                release_date: data.release_date,
+                releaseDate: data.releaseDate,
                 identity: data.identity
             };
 

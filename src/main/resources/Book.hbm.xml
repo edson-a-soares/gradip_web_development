@@ -9,6 +9,6 @@
         <property name="title" column="title" type="java.lang.String" />
         <property name="author" column="author" type="java.lang.String" />
         <property name="summary" column="summary" type="java.lang.String" />
-        <property name="releaseYear" column="release_year" type="java.lang.String" />
+        <property name="releaseDate" column="release_date" type="java.lang.String" />
     </class>
 </hibernate-mapping>

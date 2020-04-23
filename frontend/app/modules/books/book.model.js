@@ -7,7 +7,7 @@ define([
             title: 'Title here.',
             author: 'Author name.',
             summary: 'Some description here.',
-            releaseYear: '01-2015',
+            release_date: '2015-05',
             identity: 'UUID'
         }
     });

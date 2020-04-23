@@ -19,24 +19,18 @@ define([
         editBook: function (e) {
             e.preventDefault();
             const identity = $(e.currentTarget).data("id");
-
             Application.trigger("books:edit", identity);
         },
 
         removeBook: function (e) {
             e.preventDefault();
             const identity = $(e.currentTarget).data("id");
-
             Application.trigger("books:remove", identity);
         }
 
     });
 
     return Marionette.CompositeView.extend({
-
-        initialize:function() {
-            this.listenTo(this.model, 'change:selected',this.render);
-        },
 
         tagName: 'table',
 

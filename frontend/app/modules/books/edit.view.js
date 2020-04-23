@@ -21,7 +21,7 @@ define([
 
         sendData: function(e) {
             e.preventDefault();
-            var data = Backbone.Syphon.serialize(this);
+            const data = Backbone.Syphon.serialize(this);
             this.trigger("data:submit", data);
         }
 
