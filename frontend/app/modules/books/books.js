@@ -1,14 +1,18 @@
 define([
     'application',
     'modules/books/list.view',
-    'modules/books/repository'
-], function (Application, BooksListView, repository ) {
+    'modules/books/repository',
+    'modules/books/book.router',
+    'components/preloader.view'
+], function (Application, BooksListView, repository, BooksRouter, Preloader ) {
 
-    const BooksModuleLoader = Marionette.Object.extend({
+    const ModuleLoader = Marionette.Object.extend({
 
-        initialize: function (options) {
+        initialize: function () {
 
-            Application.on("books:create", function (options) {
+            Application.redirectTo("#books");
+
+            Application.on("books:create", function () {
                 require([
                     "modules/books/create.view"
                 ], function (BookCreateView) {
@@ -18,20 +22,20 @@ define([
                         $.when(repository.add(payload))
                             .done(function (xhr) {})
                             .fail(function (xhr) {});
+
                         createView.trigger("dialog:close");
                     });
                     Application.dialogRegion.show(createView);
-
                 })
             });
 
-            Application.on("books:edit", function (options) {
+            Application.on("books:edit", function (identity) {
                 require([
                     'modules/books/edit.view'
                 ], function (BookEditView) {
 
                     const editView = new BookEditView();
-                    $.when(repository.bookOf("9c09c073bb84" /* options.bookId */))
+                    $.when(repository.bookOf(identity))
                         .done(function (aBook) {
                             editView.model = aBook;
                             Application.dialogRegion.show(editView);
@@ -41,20 +45,21 @@ define([
                         $.when(repository.add(payload))
                             .done(function (xhr) {})
                             .fail(function (xhr) {});
+
                         editView.trigger("dialog:close");
                     });
 
                 })
             });
 
-            Application.on("books:remove", function (options) {
+            Application.on("books:remove", function (identity) {
 
                 require([
                     'modules/books/delete.view'
                 ], function (BookDeleteView) {
 
                     const deleteView = new BookDeleteView();
-                    $.when(repository.bookOf("9c09c073bb84" /* options.bookId */))
+                    $.when(repository.bookOf(identity))
                         .done(function (aBook) {
                             deleteView.model = aBook;
                             Application.dialogRegion.show(deleteView);
@@ -64,6 +69,7 @@ define([
                         $.when(repository.remove(payload.identity))
                             .done(function (xhr) {})
                             .fail(function (xhr) {});
+
                         deleteView.trigger("dialog:close");
                     });
 
@@ -71,15 +77,23 @@ define([
 
             });
 
-            $.when(repository.allBooks())
-                .done(function (aCollection) {
-                    Application.mainRegion.show(new BooksListView({ collection : aCollection }));
-                });
+            Application.on("books:load", function () {
+
+                Application.mainRegion.show(new Preloader());
+                $.when(repository.allBooks())
+                    .done(function (aCollection) {
+                        setTimeout(function () {
+                            Application.mainRegion.show(new BooksListView({collection: aCollection}));
+                        }, 250);
+                    });
+
+            });
 
         }
 
     });
 
-    return new BooksModuleLoader();
+    new BooksRouter();
+    return new ModuleLoader();
 
 });

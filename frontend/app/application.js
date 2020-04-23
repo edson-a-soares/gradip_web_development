@@ -2,9 +2,8 @@ define([
     "marionette",
     "underscore",
     "text!environment.json",
-    "components/dialog.region",
-    "components/notification.region"
-], function(Marionette, _, Environment, DialogRegion, NotificationRegion) {
+    "components/dialog.region"
+], function(Marionette, _, Environment, DialogRegion) {
 
     const Application = new Marionette.Application();
 
@@ -14,21 +13,16 @@ define([
     Application.addRegions({
         mainRegion: "#main-region",
         headerRegion: "#header-region",
-        dialogRegion: DialogRegion.extend({el: "#modal-region"}),
-        notificationRegion: NotificationRegion.extend({el: "#notification-region"})
+        dialogRegion: DialogRegion.extend({el: "#modal-region"})
     });
+
+    Application.redirectTo = function (url) {
+        document.location = url;
+    };
 
     Application.getURI = function(resource) {
         return Application.Environment.URI + resource;
     };
-
-    Application.on("notification", function (message, type) {
-        require([
-            "modules/notification/notification"
-        ],function (Notification) {
-            Notification.init(message, type);
-        });
-    });
 
     Application.on("start", function () {
         if(Backbone.history) {

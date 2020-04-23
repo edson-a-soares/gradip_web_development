@@ -9,7 +9,6 @@ define([
             this.listenTo(view, "dialog:close", this.closeDialog);
 
             const self = this;
-
             this.$el.modal({
                 backdrop: "static",
                 modal: true,

@@ -16,17 +16,27 @@ define([
             "click .delete" : "removeBook"
         },
 
-        editBook: function () {
-            Application.trigger("books:edit");
+        editBook: function (e) {
+            e.preventDefault();
+            const identity = $(e.currentTarget).data("id");
+
+            Application.trigger("books:edit", identity);
         },
 
-        removeBook: function () {
-            Application.trigger("books:remove");
+        removeBook: function (e) {
+            e.preventDefault();
+            const identity = $(e.currentTarget).data("id");
+
+            Application.trigger("books:remove", identity);
         }
 
     });
 
     return Marionette.CompositeView.extend({
+
+        initialize:function() {
+            this.listenTo(this.model, 'change:selected',this.render);
+        },
 
         tagName: 'table',
 

@@ -12,17 +12,17 @@ define([
             title: payload.title,
             author: payload.author,
             summary: payload.summary,
-            releaseYear: payload.releaseYear
+            release_date: payload.release_date
         };
+
+        console.log(dataObject);
 
         $.ajax({
             url: Application.getURI('/books'),
             type: 'post',
             crossDomain:true,
             data: JSON.stringify(dataObject),
-            xhrFields: {
-                withCredentials: true
-            },
+            beforeSend: function() {},
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -30,9 +30,7 @@ define([
 
         }).done(function (response) {
             defer.resolve(response);
-        }).fail(function (xhr) {
-            defer.reject(JSON.parse(xhr.responseText));
-        });
+        }).fail(function (xhr) {});
 
         return defer.promise();
     }
@@ -53,11 +51,14 @@ define([
             url: Application.getURI(`/books/id/${data.identity}`),
             type: 'put',
             dataType: 'json',
+            beforeSend: function() {},
             data: JSON.stringify(dataObject),
             contentType: 'application/json'
 
         }).done(function (response) {
             defer.resolve(response);
+            Application.trigger("books:load");
+
         }).fail(function (xhr) {
             defer.reject(JSON.parse(xhr.responseText));
         });
@@ -98,8 +99,12 @@ define([
                     'Content-Type': 'application/json'
                 },
                 crossDomain: true,
+                beforeSend: function() {}
+
             }).done(function (response) {
                 defer.resolve(new Book(response));
+                Application.trigger("books:load");
+
             }).fail(function (xhr) {
                 defer.reject(xhr)
             });
@@ -112,11 +117,12 @@ define([
                 aBook = new Book();
 
             aBook.url = Application.getURI(`/books/id/${identity}`);
-            aBook.fetch().done(function () {
-                defer.resolve(aBook);
-            }).fail(function (xhr) {
-                defer.reject(xhr);
-            });
+            aBook.fetch()
+                .done(function () {
+                    defer.resolve(aBook);
+                }).fail(function (xhr) {
+                    defer.reject(xhr);
+                });
 
             return defer.promise();
         }
