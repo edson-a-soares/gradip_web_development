@@ -12,6 +12,7 @@ To make the application available just do as follows:
 	- ```docker-compose up database webapp -d```
 	2. Data Scheme (tables):  
 		- ```mvn initialize sql:execute@create-changelog-table -Ddatabase.tasks.skip=false```
+		- ```mvn initialize sql:execute@load-sample-data -Ddatabase.tasks.skip=false```
 		- ```mvn initialize dbdepoy:update```  
 3. [Open the application on your browser.](http://localhost:8080/gradip-jpa-app)
 
