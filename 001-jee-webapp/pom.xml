@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.uece.ees</groupId>
-    <artifactId>gradip-jpa-app</artifactId>
+    <artifactId>gradip-jee-webapp</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
@@ -88,7 +88,7 @@
 
     <build>
 
-        <finalName>gradip-jpa-app</finalName>
+        <finalName>gradip-jee-webapp</finalName>
 
         <plugins>
 
@@ -178,7 +178,7 @@
 
                 <executions>
                     <execution>
-                        <id>install node and npm</id>
+                        <id>nodejs-and-npm</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
@@ -189,7 +189,7 @@
                     </execution>
 
                     <execution>
-                        <id>npm install</id>
+                        <id>install-dependencies</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -200,7 +200,7 @@
                     </execution>
 
                     <execution>
-                        <id>gulp</id>
+                        <id>execute-build</id>
                         <goals>
                             <goal>gulp</goal>
                         </goals>

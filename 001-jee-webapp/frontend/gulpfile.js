@@ -40,8 +40,8 @@ gulp.task('index:replace:css', function () {
         .pipe(gulp.dest(target.root));
     });
 
-gulp.task('bundle:js', function () {
-        return requireJS({
+gulp.task('bundle:js', function (done) {
+        const result = requireJS({
             baseUrl: 'app',
             name: 'startup',
             mainConfigFile: 'app/startup.js',
@@ -51,6 +51,9 @@ gulp.task('bundle:js', function () {
             include: ['almond']
         })
         .pipe(gulp.dest(target.js));
+        done();
+
+        return result;
     });
 
 gulp.task('bundle:css', function () {
@@ -64,5 +67,4 @@ gulp.task('clear:build', function () {
         return gulp.src(target.root + '/**', {read: false}).pipe(gulpClean());
     });
 
-gulp.task("build",
-    gulp.series("bundle:css", "bundle:js", "copy:index", "index:replace:css", "index:replace:js"));
+gulp.task("build", gulp.series("bundle:css", "bundle:js", "copy:index", "index:replace:css", "index:replace:js"));

@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        - artifact_name=gradip-jpa-app
+        - artifact_name=gradip-jee-webapp
       dockerfile: Dockerfile
     image: gradip-jpa-app:1.0
     container_name: webapp

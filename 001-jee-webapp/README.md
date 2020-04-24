@@ -1,4 +1,4 @@
-## JPA App
+## JEE Webapp
 
 There is no **src/main/webapp** folder because it will be automatic generated with the frontend application bundled, 
 minified, and uglified before the backend Java application **package** phase and deleted on the **clean** phase. 
@@ -14,7 +14,7 @@ To make the application available just do as follows:
 		- ```mvn initialize sql:execute@create-changelog-table -Ddatabase.tasks.skip=false```
         - ```mvn initialize dbdeploy:update```
 		- ```mvn initialize sql:execute@load-sample-data -Ddatabase.tasks.skip=false```  
-3. [Open the application on your browser.](http://localhost:8080/gradip-jpa-app)
+3. [Open the application on your browser.](http://localhost:8080/gradip-jee-webapp)
 
 ****
 #### Data Access
@@ -51,3 +51,8 @@ Other Maven goals for database tasks:
  - ```sql:execute@load-sample-data```
  - ```sql:execute@create-changelog-table```
 
+Other Maven goals for frontend tasks:
+
+- ```mvn frontend:install-node-and-npm@nodejs-and-npm```
+- ```mvn frontend:npm@install-dependencies```
+- ```mvn frontend:gulp@execute-build```
