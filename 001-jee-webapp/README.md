@@ -11,6 +11,7 @@ To make the application available just do as follows:
 2. [x] Infrastructure (tomcat & postgres)
 	- ```docker-compose up -d --force-recreate webapp```
 	2. Data Scheme (tables):  
+		- ```mvn initialize sql:execute@drop-tables -Ddatabase.tasks.skip=false```
 		- ```mvn initialize sql:execute@create-changelog-table -Ddatabase.tasks.skip=false```
         - ```mvn initialize dbdeploy:update```
 		- ```mvn initialize sql:execute@load-sample-data -Ddatabase.tasks.skip=false```  
