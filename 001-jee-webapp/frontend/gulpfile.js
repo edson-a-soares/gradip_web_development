@@ -12,7 +12,8 @@ const
     target = {
         root:'../src/main/webapp/',
         js  :'../src/main/webapp/js/',
-        css :'../src/main/webapp/css/'
+        css :'../src/main/webapp/css/',
+        images :'../src/main/webapp/images/'
     },
     styles = [
         'css/style.css',
@@ -63,8 +64,13 @@ gulp.task('bundle:css', function () {
         .pipe(gulp.dest(target.css));
     });
 
+gulp.task("copy:images", function () {
+    return gulp.src("images/**/*")
+        .pipe(gulp.dest(target.images));
+});
+
 gulp.task('clear:build', function () {
         return gulp.src(target.root + '/**', {read: false}).pipe(gulpClean());
     });
 
-gulp.task("build", gulp.series("bundle:css", "bundle:js", "copy:index", "index:replace:css", "index:replace:js"));
+gulp.task("build", gulp.series("bundle:css", "bundle:js", "copy:index", "index:replace:css", "index:replace:js", "copy:images"));
