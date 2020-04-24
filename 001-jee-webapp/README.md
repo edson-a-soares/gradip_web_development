@@ -9,7 +9,7 @@ To make the application available just do as follows:
 1. [x] Application compilation, building, and packaging:  
 	- ```mvn install```
 2. [x] Infrastructure (tomcat & postgres)
-	- ```docker-compose up database webapp -d```
+	- ```docker-compose up -d --force-recreate webapp```
 	2. Data Scheme (tables):  
 		- ```mvn initialize sql:execute@create-changelog-table -Ddatabase.tasks.skip=false```
         - ```mvn initialize dbdeploy:update```

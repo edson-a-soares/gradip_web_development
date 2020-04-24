@@ -355,6 +355,7 @@
                                 <argument>.</argument>
                                 <argument>-t</argument>
                                 <argument>${project.artifactId}:${project.version}</argument>
+                                <argument>--no-cache</argument>
                             </arguments>
                         </configuration>
                     </execution>
