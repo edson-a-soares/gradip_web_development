@@ -20,7 +20,9 @@ define([
                     const createView = new BookCreateView();
                     createView.on("data:submit", function (payload) {
                         $.when(repository.add(payload))
-                            .done(function (xhr) {})
+                            .done(function (xhr) {
+                                Application.trigger("books:load");
+                            })
                             .fail(function (xhr) {});
 
                         createView.trigger("dialog:close");

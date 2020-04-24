@@ -40,6 +40,11 @@ define([
 
         childView: BookTableRowView,
 
+        onShow: function () {
+            this.collection.fetch();
+            this.render();
+        },
+
         childViewContainer: 'tbody'
 
     });
