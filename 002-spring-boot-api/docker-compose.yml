@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  database:
+    image: postgres
+    container_name: spring-movies-postgres-instance
+    ports:
+      - "${PGADMIN_PORT:-5432}:5432"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_DB: ${POSTGRESQL_DB:-spring_movies_api}
+    networks:
+      - local
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_instance
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - local
+    depends_on:
+      - database
+    restart: unless-stopped
+
+networks:
+  local:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
