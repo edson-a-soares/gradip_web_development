@@ -22,7 +22,7 @@ public class FilmCrewPeopleController {
 
 	@GetMapping("/{personId}")
 	public ResponseEntity<FilmCrewPerson> find(@PathVariable String personId) {
-		FilmCrewPerson person = filmCrewPeople.personWith(personId);
+		var person = filmCrewPeople.personWith(personId);
 		if (person == null)
 			return ResponseEntity.notFound().build();
 
@@ -43,7 +43,7 @@ public class FilmCrewPeopleController {
 	@PutMapping("/{personId}")
 	public ResponseEntity<?> update(@PathVariable String personId, @RequestBody FilmCrewPerson person) {
 		try {
-			FilmCrewPerson storedPerson = filmCrewPeople.personWith(personId);
+			var storedPerson = filmCrewPeople.personWith(personId);
 			if (storedPerson == null)
 				return ResponseEntity.notFound().build();
 

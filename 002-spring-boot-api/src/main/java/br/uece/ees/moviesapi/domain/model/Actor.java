@@ -16,11 +16,10 @@ import org.hibernate.annotations.GenericGenerator;
 public class Actor {
 
 	@Id
-	@Size(max = 36)
 	@EqualsAndHashCode.Include
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	@Column(name = "actor_id", nullable = false)
+	// @GenericGenerator(name = "custom", strategy = "uuid")
+	@GeneratedValue(generator = "custom", strategy = GenerationType.IDENTITY)
 	private String id;
 
 	@NotNull

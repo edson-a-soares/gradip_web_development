@@ -28,4 +28,8 @@ public class FilmCrewRole {
 	@Column(name = "role_name", nullable = false)
 	private String name;
 
+	@Size(max = 500)
+	@Column(name = "role_description")
+	private String description;
+
 }

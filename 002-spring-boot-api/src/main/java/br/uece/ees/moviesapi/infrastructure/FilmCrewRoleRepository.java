@@ -40,7 +40,7 @@ public class FilmCrewRoleRepository implements FilmCrewRoleRepositoryInterface {
 	@Override
 	@Transactional
 	public void remove(String id) {
-		FilmCrewRole role = theOneWith(id);
+		var role = theOneWith(id);
 		if (role == null)
 			throw new EmptyResultDataAccessException(1);
 

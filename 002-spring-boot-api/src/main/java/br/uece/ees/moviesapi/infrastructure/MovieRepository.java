@@ -3,48 +3,48 @@ package br.uece.ees.moviesapi.infrastructure;
 import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import br.uece.ees.moviesapi.domain.model.Actor;
 import org.springframework.stereotype.Component;
+import br.uece.ees.moviesapi.domain.model.Movie;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
-import br.uece.ees.moviesapi.domain.model.ActorRepositoryInterface;
+import br.uece.ees.moviesapi.domain.model.MovieRepositoryInterface;
 
 @Component
-public class ActorRepository implements ActorRepositoryInterface {
+public class MovieRepository implements MovieRepositoryInterface {
 
 	@PersistenceContext
 	private EntityManager manager;
 
 	@Override
-	public Collection<Actor> all() {
-		return manager.createQuery("from Actor", Actor.class).getResultList();
+	public Collection<Movie> all() {
+		return manager.createQuery("from Movie", Movie.class).getResultList();
 	}
 
 	@Override
-	public Actor theOneWith(String id) {
-		return manager.find(Actor.class, id);
+	public Movie theOneWith(String id) {
+		return manager.find(Movie.class, id);
 	}
 
 	@Override
-	public Actor theOneOf(String name) {
+	public Movie theOneOf(String name) {
 		return null;
 	}
 
 	@Override
 	@Transactional
-	public Actor add(Actor actor) {
-		return manager.merge(actor);
+	public Movie add(Movie movie) {
+		return manager.merge(movie);
 
 	}
 
 	@Override
 	@Transactional
 	public void remove(String id) {
-		var actor = theOneWith(id);
-		if (actor == null)
+		var movie = theOneWith(id);
+		if (movie == null)
 			throw new EmptyResultDataAccessException(1);
 
-		manager.remove(actor);
+		manager.remove(movie);
 	}
 
 }

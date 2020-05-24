@@ -1,8 +1,6 @@
 package br.uece.ees.moviesapi.api;
 
 import java.util.Collection;
-
-import br.uece.ees.moviesapi.domain.model.EntityAlreadyExistsException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +9,7 @@ import br.uece.ees.moviesapi.domain.model.Actor;
 import org.springframework.beans.factory.annotation.Autowired;
 import br.uece.ees.moviesapi.domain.model.EntityNotFoundException;
 import br.uece.ees.moviesapi.domain.model.ActorRepositoryInterface;
+import br.uece.ees.moviesapi.domain.model.EntityAlreadyExistsException;
 
 @RestController
 @RequestMapping(value = "/actors")
@@ -26,7 +25,7 @@ public class ActorsController {
 
 	@GetMapping("/{actorId}")
 	public ResponseEntity<Actor> find(@PathVariable String actorId) {
-		Actor actor = actors.theOneWith(actorId);
+		var actor = actors.theOneWith(actorId);
 		if (actor != null)
 			return ResponseEntity.ok(actor);
 
@@ -47,7 +46,7 @@ public class ActorsController {
 	@PutMapping("/{actorId}")
 	public ResponseEntity<?> update(@PathVariable String actorId, @RequestBody Actor actor) {
 		try {
-			Actor storedActor = actors.theOneWith(actorId);
+			var storedActor = actors.theOneWith(actorId);
 			if (storedActor == null)
 				return ResponseEntity.notFound().build();
 

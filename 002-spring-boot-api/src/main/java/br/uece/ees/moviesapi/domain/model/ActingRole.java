@@ -25,7 +25,11 @@ public class ActingRole {
 	@NotNull
 	@NotEmpty
 	@Size(max = 40)
-	@Column(name = "role_name", nullable = false, unique = true)
+	@Column(name = "role_name", nullable = false)
 	private String name;
+
+	@Size(max = 500)
+	@Column(name = "role_description")
+	private String description;
 
 }

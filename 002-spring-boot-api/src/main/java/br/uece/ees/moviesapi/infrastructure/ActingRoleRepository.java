@@ -40,7 +40,7 @@ public class ActingRoleRepository implements ActingRoleRepositoryInterface {
 	@Override
 	@Transactional
 	public void remove(String id) {
-		ActingRole role = theOneWith(id);
+		var role = theOneWith(id);
 		if (role == null)
 			throw new EmptyResultDataAccessException(1);
 

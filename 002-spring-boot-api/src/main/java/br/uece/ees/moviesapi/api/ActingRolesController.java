@@ -22,7 +22,7 @@ public class ActingRolesController {
 
 	@GetMapping("/{roleId}")
 	public ResponseEntity<ActingRole> find(@PathVariable String roleId) {
-		ActingRole role = actingRoles.theOneWith(roleId);
+		var role = actingRoles.theOneWith(roleId);
 		if (role == null)
 			return ResponseEntity.notFound().build();
 
@@ -43,7 +43,7 @@ public class ActingRolesController {
 	@PutMapping("/{roleId}")
 	public ResponseEntity<?> update(@PathVariable String roleId, @RequestBody ActingRole role) {
 		try {
-			ActingRole storedRole = actingRoles.theOneWith(roleId);
+			var storedRole = actingRoles.theOneWith(roleId);
 			if (storedRole == null)
 				return ResponseEntity.notFound().build();
 

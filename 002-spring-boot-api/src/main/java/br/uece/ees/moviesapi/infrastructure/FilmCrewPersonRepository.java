@@ -40,7 +40,7 @@ public class FilmCrewPersonRepository implements FilmCrewPersonRepositoryInterfa
 	@Override
 	@Transactional
 	public void remove(String id) {
-		FilmCrewPerson person = personWith(id);
+		var person = personWith(id);
 		if (person == null)
 			throw new EmptyResultDataAccessException(1);
 
