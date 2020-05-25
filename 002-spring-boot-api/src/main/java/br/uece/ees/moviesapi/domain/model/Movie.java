@@ -21,7 +21,6 @@ public class Movie {
 	@Size(max = 36)
 	@EqualsAndHashCode.Include
 	@Column(name = "movie_id", nullable = false)
-	// @GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "custom-generator", strategy = "uuid")
 	private String id;
 
