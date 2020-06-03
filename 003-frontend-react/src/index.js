@@ -6,5 +6,5 @@ ReactDOM.render(
   <React.StrictMode>
     <Application />
   </React.StrictMode>,
-  document.getElementById('site-content')
+  document.getElementById('application')
 );

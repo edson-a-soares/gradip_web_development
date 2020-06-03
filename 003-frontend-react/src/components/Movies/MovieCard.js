@@ -19,7 +19,6 @@ const HyperTitle = ({ text, link }) =>
         <Link to={link}>{text}</Link>
     </div>
 
-
 const MovieCard = (Icon, HyperTitle, { info }) =>
     <div className="movie">
         <Icon file={"/assets/images/thumb.jpg"} />
