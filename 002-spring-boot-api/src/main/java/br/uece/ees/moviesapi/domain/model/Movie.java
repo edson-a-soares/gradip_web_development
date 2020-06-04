@@ -32,8 +32,23 @@ public class Movie {
 
 	@NotNull
 	@NotEmpty
+	@Column(name = "length", nullable = false)
+	private short length;
+
+	@NotNull
+	@NotEmpty
 	@Column(name = "plot_synopsis", nullable = false)
 	private String synopsis;
+
+	@NotNull
+	@NotEmpty
+	@Column(name = "plot_summary", nullable = false)
+	private String summary;
+
+	@NotNull
+	@NotEmpty
+	@Column(name = "short_description", nullable = false)
+	private String description;
 
 	@NotNull
 	@NotEmpty

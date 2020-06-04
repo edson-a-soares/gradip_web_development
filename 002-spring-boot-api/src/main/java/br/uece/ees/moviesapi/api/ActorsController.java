@@ -12,6 +12,7 @@ import br.uece.ees.moviesapi.domain.model.ActorRepositoryInterface;
 import br.uece.ees.moviesapi.domain.model.EntityAlreadyExistsException;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/actors")
 public class ActorsController {
 

@@ -1,8 +1,11 @@
 CREATE TABLE movies (
-  movie_id      VARCHAR(36) NOT NULL,
-  title         VARCHAR(40) NOT NULL,
-  plot_synopsis TEXT NOT NULL,
-  release_year  SMALLINT NOT NULL,
+  movie_id          VARCHAR(36)  NOT NULL,
+  title             VARCHAR(40)  NOT NULL,
+  length            SMALLINT NOT NULL,
+  short_description VARCHAR(500) NOT NULL,
+  plot_summary      VARCHAR(500) NOT NULL,
+  plot_synopsis     TEXT NOT NULL,
+  release_year      SMALLINT NOT NULL,
   UNIQUE(title),
   PRIMARY KEY (movie_id)
 );
