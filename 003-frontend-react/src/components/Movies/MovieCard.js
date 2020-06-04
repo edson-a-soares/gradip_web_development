@@ -1,11 +1,7 @@
 import React from 'react';
 import {
-    Route,
-    Link,
     BrowserRouter as Router,
-    Switch
 } from 'react-router-dom';
-import SingleMoviePage from '../Movies/SingleMoviePage'
 
 
 const Image = ({ file }) =>
@@ -16,19 +12,14 @@ const Image = ({ file }) =>
 
 const HyperTitle = ({ text, link }) =>
     <div className="movie-title">
-        <Link to={link}>{text}</Link>
+        <a href={link}>{text}</a>
     </div>
 
 const MovieCard = (Icon, HyperTitle, { info }) =>
     <div className="movie">
         <Icon file={"/assets/images/thumb.jpg"} />
         <Router>
-            <HyperTitle text={info.text} link={`/movies/${info.id}`} />
-            <Switch>
-                <Route path="/movies/:id" >
-                    <SingleMoviePage />
-                </Route>
-            </Switch>
+            <HyperTitle text={info.title} link={`/movies/${info.id}`} />
         </Router>
         <p>{info.description}</p>
     </div>

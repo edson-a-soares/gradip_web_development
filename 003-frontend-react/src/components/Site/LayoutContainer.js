@@ -1,20 +1,20 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import MoviesCardsList from "../Movies";
-import MoviesSinglePage from "../Movies/SingleMoviePage";
 
-const SiteIndexPage = () =>
-    <div>
+
+const LayoutContainer = ({ component }) =>
+    <div id="site-content">
         <Header />
         <main className="main-content">
             <div className="container">
                 <div className="page">
-                    <MoviesSinglePage />
+                    {component}
                 </div>
             </div>
         </main>
         <Footer />
     </div>
 
-export default SiteIndexPage;
+
+export default LayoutContainer;

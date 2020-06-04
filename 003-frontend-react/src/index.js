@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Application from './components/Application';
+import Router from "./components/Application/Router";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Application />
+    <Router />
   </React.StrictMode>,
   document.getElementById('application')
 );
