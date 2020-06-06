@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import br.uece.ees.moviesapi.domain.model.ActingRole;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
-import br.uece.ees.moviesapi.domain.model.ActingRoleRepositoryInterface;
+import br.uece.ees.moviesapi.domain.model.repository.ActingRoleRepositoryInterface;
 
 @Component
 public class ActingRoleRepository implements ActingRoleRepositoryInterface {

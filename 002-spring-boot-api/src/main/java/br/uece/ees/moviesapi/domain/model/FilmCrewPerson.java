@@ -19,6 +19,7 @@ public class FilmCrewPerson {
 	@Size(max = 36)
 	@EqualsAndHashCode.Include
 	@Column(name = "person_id", nullable = false)
+	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id;
 

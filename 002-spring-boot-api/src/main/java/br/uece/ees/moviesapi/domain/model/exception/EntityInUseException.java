@@ -1,4 +1,4 @@
-package br.uece.ees.moviesapi.domain.model;
+package br.uece.ees.moviesapi.domain.model.exception;
 
 public class EntityInUseException extends RuntimeException {
 

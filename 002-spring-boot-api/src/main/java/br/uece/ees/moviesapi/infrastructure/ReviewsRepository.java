@@ -5,6 +5,8 @@ import javax.persistence.criteria.Root;
 import javax.persistence.EntityManager;
 import br.uece.ees.moviesapi.domain.model.*;
 import javax.persistence.PersistenceContext;
+
+import br.uece.ees.moviesapi.domain.model.repository.ReviewRepositoryInterface;
 import org.springframework.stereotype.Component;
 import javax.persistence.criteria.CriteriaQuery;
 import org.springframework.dao.EmptyResultDataAccessException;

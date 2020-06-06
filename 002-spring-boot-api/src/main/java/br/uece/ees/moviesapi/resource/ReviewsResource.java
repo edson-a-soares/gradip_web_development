@@ -1,5 +1,8 @@
-package br.uece.ees.moviesapi.api;
+package br.uece.ees.moviesapi.resource;
 
+import br.uece.ees.moviesapi.domain.model.exception.EntityInUseException;
+import br.uece.ees.moviesapi.domain.model.repository.MovieRepositoryInterface;
+import br.uece.ees.moviesapi.domain.model.repository.ReviewRepositoryInterface;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import br.uece.ees.moviesapi.domain.model.*;
@@ -11,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/movies")
-public class ReviewsController {
+public class ReviewsResource {
 
     @Autowired
     private MovieRepositoryInterface movies;
@@ -37,7 +40,7 @@ public class ReviewsController {
         return ResponseEntity.ok(review);
 	}
 
-	@PostMapping("/{movieId}")
+	@PostMapping("/{movieId}/reviews")
 	public ResponseEntity<?> add(@RequestBody Review review, @PathVariable String movieId) {
 		try {
             var movie = movies.theOneWith(movieId);

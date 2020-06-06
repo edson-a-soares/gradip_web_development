@@ -1,4 +1,7 @@
-package br.uece.ees.moviesapi.domain.model;
+package br.uece.ees.moviesapi.domain.model.repository;
+
+import br.uece.ees.moviesapi.domain.model.Movie;
+import br.uece.ees.moviesapi.domain.model.Review;
 
 import java.util.Collection;
 

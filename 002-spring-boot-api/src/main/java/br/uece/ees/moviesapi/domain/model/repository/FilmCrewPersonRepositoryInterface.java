@@ -1,4 +1,6 @@
-package br.uece.ees.moviesapi.domain.model;
+package br.uece.ees.moviesapi.domain.model.repository;
+
+import br.uece.ees.moviesapi.domain.model.FilmCrewPerson;
 
 import java.util.Collection;
 

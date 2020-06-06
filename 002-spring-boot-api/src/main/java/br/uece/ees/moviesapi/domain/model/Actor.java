@@ -18,7 +18,8 @@ public class Actor {
 	@Id
 	@EqualsAndHashCode.Include
 	@Column(name = "actor_id", nullable = false)
-	@GeneratedValue(generator = "custom", strategy = GenerationType.IDENTITY)
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id;
 
 	@NotNull

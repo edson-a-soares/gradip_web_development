@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import br.uece.ees.moviesapi.domain.model.Movie;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
-import br.uece.ees.moviesapi.domain.model.MovieRepositoryInterface;
+import br.uece.ees.moviesapi.domain.model.repository.MovieRepositoryInterface;
 
 @Component
 public class MovieRepository implements MovieRepositoryInterface {

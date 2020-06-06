@@ -1,6 +1,7 @@
-package br.uece.ees.moviesapi.domain.model;
+package br.uece.ees.moviesapi.domain.model.repository;
 
 import java.util.Collection;
+import br.uece.ees.moviesapi.domain.model.Movie;
 
 public interface MovieRepositoryInterface {
 

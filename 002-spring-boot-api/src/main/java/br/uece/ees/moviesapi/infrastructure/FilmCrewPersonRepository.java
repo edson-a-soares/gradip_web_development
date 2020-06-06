@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import br.uece.ees.moviesapi.domain.model.FilmCrewPerson;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
-import br.uece.ees.moviesapi.domain.model.FilmCrewPersonRepositoryInterface;
+import br.uece.ees.moviesapi.domain.model.repository.FilmCrewPersonRepositoryInterface;
 
 @Component
 public class FilmCrewPersonRepository implements FilmCrewPersonRepositoryInterface {

@@ -1,7 +1,11 @@
-package br.uece.ees.moviesapi.api;
+package br.uece.ees.moviesapi.resource;
 
 import java.util.Collection;
+
+import br.uece.ees.moviesapi.domain.model.exception.EntityAlreadyExistsException;
+import br.uece.ees.moviesapi.domain.model.exception.EntityNotFoundException;
 import br.uece.ees.moviesapi.domain.model.*;
+import br.uece.ees.moviesapi.domain.model.repository.FilmCrewPersonRepositoryInterface;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/film-crew/people")
-public class FilmCrewPeopleController {
+public class FilmCrewPeopleResource {
 
 	@Autowired
 	private FilmCrewPersonRepositoryInterface filmCrewPeople;

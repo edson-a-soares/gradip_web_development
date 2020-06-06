@@ -1,4 +1,6 @@
-package br.uece.ees.moviesapi.domain.model;
+package br.uece.ees.moviesapi.domain.model.repository;
+
+import br.uece.ees.moviesapi.domain.model.ActingRole;
 
 import java.util.Collection;
 

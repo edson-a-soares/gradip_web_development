@@ -6,16 +6,19 @@ import lombok.EqualsAndHashCode;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.GenericGenerator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Data
 @Entity
 @Table(name = "reviews")
+@JsonIgnoreProperties(value = { "movie" })
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Review {
 
 	@Id
 	@Size(max = 36)
 	@EqualsAndHashCode.Include
+	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	@Column(name = "review_id", nullable = false)
 	private String id;

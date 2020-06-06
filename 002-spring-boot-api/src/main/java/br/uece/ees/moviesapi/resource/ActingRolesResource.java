@@ -1,29 +1,33 @@
-package br.uece.ees.moviesapi.api;
+package br.uece.ees.moviesapi.resource;
 
 import java.util.Collection;
-import br.uece.ees.moviesapi.domain.model.*;
+
+import br.uece.ees.moviesapi.domain.model.exception.EntityAlreadyExistsException;
+import br.uece.ees.moviesapi.domain.model.exception.EntityNotFoundException;
+import br.uece.ees.moviesapi.domain.model.repository.ActingRoleRepositoryInterface;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
+import br.uece.ees.moviesapi.domain.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/film-crew/roles")
-public class FilmCrewRolesController {
+@RequestMapping(value = "/acting/roles")
+public class ActingRolesResource {
 
 	@Autowired
-	private FilmCrewRoleRepositoryInterface filmCrewRoles;
+	private ActingRoleRepositoryInterface actingRoles;
 
 	@GetMapping
-	public Collection<FilmCrewRole> list() {
-		return filmCrewRoles.all();
+	public Collection<ActingRole> list() {
+		return actingRoles.all();
 	}
 
 	@GetMapping("/{roleId}")
-	public ResponseEntity<FilmCrewRole> find(@PathVariable String roleId) {
-		var role = filmCrewRoles.theOneWith(roleId);
+	public ResponseEntity<ActingRole> find(@PathVariable String roleId) {
+		var role = actingRoles.theOneWith(roleId);
 		if (role == null)
 			return ResponseEntity.notFound().build();
 
@@ -31,9 +35,9 @@ public class FilmCrewRolesController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> add(@RequestBody FilmCrewRole role) {
+	public ResponseEntity<?> add(@RequestBody ActingRole role) {
 		try {
-			role = filmCrewRoles.add(role);
+			role = actingRoles.add(role);
 			return ResponseEntity.status(HttpStatus.CREATED).body(role);
 
 		} catch (EntityAlreadyExistsException e) {
@@ -42,14 +46,14 @@ public class FilmCrewRolesController {
 	}
 
 	@PutMapping("/{roleId}")
-	public ResponseEntity<?> update(@PathVariable String roleId, @RequestBody FilmCrewRole role) {
+	public ResponseEntity<?> update(@PathVariable String roleId, @RequestBody ActingRole role) {
 		try {
-			var storedRole = filmCrewRoles.theOneWith(roleId);
+			var storedRole = actingRoles.theOneWith(roleId);
 			if (storedRole == null)
 				return ResponseEntity.notFound().build();
 
 			BeanUtils.copyProperties(role, storedRole, "id");
-			storedRole = filmCrewRoles.add(storedRole);
+			storedRole = actingRoles.add(storedRole);
 			return ResponseEntity.ok(storedRole);
 
 		} catch (EntityNotFoundException e) {
@@ -58,9 +62,9 @@ public class FilmCrewRolesController {
 	}
 
 	@DeleteMapping("/{roleId}")
-	public ResponseEntity<FilmCrewRole> remove(@PathVariable String roleId) {
+	public ResponseEntity<ActingRole> remove(@PathVariable String roleId) {
 		try {
-			filmCrewRoles.remove(roleId);
+			actingRoles.remove(roleId);
 			return ResponseEntity.noContent().build();
 
 		} catch (EntityNotFoundException e) {
