@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import Preloader from "../Common/Preloader";
 import ReviewingForm from "../Reviews/ReviewingForm";
 import CommentsSection from "../Reviews/CommentsSection";
-import useFetchSingleMovie from "../../hooks/Movies/useFetchSingleMovie";
+import useFetch from "../../hooks/useFetch";
 
 
 const Figure = ({ file }) =>
@@ -25,7 +25,7 @@ const PlotSynopsis = ({ text }) =>
 
 
 const SingleMoviePage = (Figure, PlotSummary, PlotSynopsis, {movieId}) => {
-    const [movie, isLoading, error, fetchSingleMovie] = useFetchSingleMovie({movieId});
+    const [movie, isLoading, error] = useFetch(`/movies/${movieId}`);
     return error ? <Error message={error} /> :
         isLoading ? <Preloader /> :
             <div>
@@ -47,7 +47,7 @@ const SingleMoviePage = (Figure, PlotSummary, PlotSynopsis, {movieId}) => {
                                     <span title={`Rated ${movie.average_rating} out of 5`}>
                                         <Rating
                                             readonly
-                                            initialRating={"5"}
+                                            initialRating={movie.average_rating}
                                             emptySymbol={<img src="/assets/images/star-grey.png" className="rating" alt="#"/>}
                                             fullSymbol={<img src="/assets/images/star-yellow.png" className="rating" alt="#"/>}
                                         />

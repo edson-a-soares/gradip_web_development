@@ -2,11 +2,11 @@ import React from 'react';
 import Rating from "react-rating";
 import Error from "../Common/Error";
 import Preloader from "../Common/Preloader";
-import useListReviews from "../../hooks/Reviews/useListReviews";
+import useFetch from "../../hooks/useFetch";
 
 
 const CommentsSection = ({ movieId }) => {
-    const [reviews, isLoading, error] = useListReviews({movieId});
+    const [reviews, isLoading, error] = useFetch(`/movies/${movieId}/reviews`);
     return <div>
     {
         error ? <Error message={error} /> :
