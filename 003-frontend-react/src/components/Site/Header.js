@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Brand = ({ info }) =>
     <div id="branding">
         <img src={info.image} alt="#" className="logo" />
@@ -9,13 +10,8 @@ const Brand = ({ info }) =>
         </div>
     </div>
 
-const info = {
-        "image" : "/assets/images/logo.png",
-        "company" : "Company Name",
-        "description" : "Tagline goes here"
-    };
 
-const Header = (Brand) =>
+const Header = (Brand, { info }) =>
     <header className="site-header">
         <div className="container">
             <Brand info={info} />
@@ -23,6 +19,6 @@ const Header = (Brand) =>
     </header>
 
 
-export default function () {
-    return Header(Brand);
+export default function ({ info }) {
+    return Header(Brand, { info });
 };

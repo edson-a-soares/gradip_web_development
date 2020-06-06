@@ -31,7 +31,9 @@ const CommentsSection = ({ movieId }) => {
         })
     }
     </div>
+
 }
+
 
 export default function({ movieId }) {
   return CommentsSection({ movieId });

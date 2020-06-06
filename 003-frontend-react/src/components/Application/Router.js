@@ -2,7 +2,8 @@ import React from 'react';
 import {
     Route,
     BrowserRouter,
-    Switch
+    Switch,
+    useParams
 } from 'react-router-dom';
 import MovieCardsList from "../Movies";
 import PageNotFound from "../Site/PageNotFound";
@@ -17,7 +18,7 @@ const Router = () =>
                 <LayoutContainer component={ <MovieCardsList /> } />
             </Route>
             <Route exact path="/movies/:id" >
-                <LayoutContainer component={ <SingleMoviePage /> } />
+                <LayoutContainer component={ <SingleMoviePageWrapper /> } />
             </Route>
             <Route path='*' exact>
                 <LayoutContainer component={ <PageNotFound /> } />
@@ -25,5 +26,10 @@ const Router = () =>
         </Switch>
     </BrowserRouter>
 
+
+const SingleMoviePageWrapper = () => {
+    const { id } = useParams();
+    return <SingleMoviePage movieId={id} />
+}
 
 export default Router;

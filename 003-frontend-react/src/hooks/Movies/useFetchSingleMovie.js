@@ -3,34 +3,34 @@ import { useEffect, useCallback, useState } from 'react';
 
 export default ({ movieId }) => {
 
-    const [error, setError] = useState(null);
-    const [reviews, setReviews] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+  const [movie, setMovie] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const fetchReviews = useCallback(() => {
+  const fetchSingleMovie = useCallback(() => {
 
     setIsLoading(true);
     const onSuccess = (response) => {
       setIsLoading(false);
-      setReviews(response.data);
+      setMovie(response.data);
     }
 
     const onError = (error) => {
       console.error(error);
       setIsLoading(false);
-      setError({ message: 'Unable to load reviews.' });
+      setError({ message: 'Unable to load movie.' });
     }
 
     (() => {
-        API.get(`/movies/${movieId}/reviews`)
+      API.get(`/movies/${movieId}`)
           .then(onSuccess)
           .catch(onError);
     })();
 
   }, [movieId]);
 
-  useEffect(() => fetchReviews(), [fetchReviews]);
+  useEffect(() => fetchSingleMovie(), [fetchSingleMovie]);
 
-  return [reviews, isLoading, error, fetchReviews];
+  return [movie, isLoading, error, fetchSingleMovie];
 
 }

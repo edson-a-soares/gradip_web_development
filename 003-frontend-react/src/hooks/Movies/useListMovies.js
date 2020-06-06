@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
+import API from "../../components/Common/API";
 
 export default () => {
 
@@ -22,7 +22,7 @@ export default () => {
     }
 
     (() => {
-      axios.get('http://localhost:8080/movies')
+      API.get('/movies')
           .then(onSuccess)
           .catch(onError);
     })();

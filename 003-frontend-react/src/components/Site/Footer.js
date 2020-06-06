@@ -1,10 +1,7 @@
 import React from 'react';
 
-const info = {
-        "copyright" : "Copyright 2020. All rights reserved"
-    };
 
-const Footer = () =>
+const Footer = ({ info }) =>
     <footer className="site-footer">
         <div className="container">
             <div className="colophon">{info.copyright}</div>
@@ -12,6 +9,6 @@ const Footer = () =>
     </footer>
 
 
-export default function () {
-    return Footer();
+export default function ({info}) {
+    return Footer({info});
 };
