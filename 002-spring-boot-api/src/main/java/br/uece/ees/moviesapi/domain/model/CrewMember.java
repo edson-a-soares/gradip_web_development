@@ -12,6 +12,14 @@ import javax.validation.constraints.Size;
 @PrimaryKeyJoinColumn(name = "person_id")
 public class CrewMember extends FilmCrewPerson {
 
+	public CrewMember() {}
+
+	public CrewMember(FilmCrewRole role, String id, String name) {
+		super.setId(id);
+		this.role = role;
+		super.setName(name);
+	}
+
 	@Size(max = 40)
 	@OneToOne
 	@JoinColumn(name = "role_id", nullable = false)

@@ -1,6 +1,8 @@
 package br.uece.ees.moviesapi.resource;
 
 import java.util.Collection;
+
+import br.uece.ees.moviesapi.application.assembler.MovieAssembler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ public class MoviesResource {
 
 	@Autowired
 	private MovieService movieApplicationService;
+
 
 	@GetMapping
 	public Collection<MovieRepresentation> list() {

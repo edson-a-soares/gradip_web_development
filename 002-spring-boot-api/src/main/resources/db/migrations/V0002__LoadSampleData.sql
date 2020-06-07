@@ -112,7 +112,6 @@ INSERT INTO
 VALUES
     ('5b36c7c685f14edd-b8b349c8f3caaba5', '41dad570130f4397af9cbd9a525c129a', 'd07dfaea806c46c49cabf4ae7edfb58b'),
     ('de1621d42ec344a48a498c13c6d7ba23', '9bec3337dea24f768e3e8240645f7b1f', 'd07dfaea806c46c49cabf4ae7edfb58b'),
-    ('de1621d42ec344a48a498c13c6d7ba23', '9bec3337dea24f768e3e8240645f7b1f', 'd07dfaea806c46c49cabf4ae7edfb58b'),
     ('7168a06956dc4b8388d66f30c03c1632', '8fc13ddddc6e4b0490f3ab77ef73e9f2', 'd07dfaea806c46c49cabf4ae7edfb58b');
 
 -----------------------------------------------------------------

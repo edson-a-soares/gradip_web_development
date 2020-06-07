@@ -17,4 +17,12 @@ public class CastMember extends Actor {
 	@JoinColumn(name = "role_id", nullable = false)
 	private ActingRole role;
 
+	public CastMember() {}
+
+	public CastMember(ActingRole role, String id, String name) {
+		super.setId(id);
+		this.role = role;
+		super.setName(name);
+	}
+
 }

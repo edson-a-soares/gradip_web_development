@@ -1,63 +1,65 @@
 package br.uece.ees.moviesapi.application.representation;
 
-import br.uece.ees.moviesapi.domain.model.Category;
-import lombok.Data;
 import java.util.List;
 import java.util.ArrayList;
-import br.uece.ees.moviesapi.domain.model.Movie;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import br.uece.ees.moviesapi.domain.model.CastMember;
+import br.uece.ees.moviesapi.domain.model.Movie;
+import br.uece.ees.moviesapi.domain.model.Category;
+import com.fasterxml.jackson.annotation.JsonInclude;
+// import br.uece.ees.moviesapi.domain.model.CastMember;
 import br.uece.ees.moviesapi.domain.model.CrewMember;
 import br.uece.ees.moviesapi.domain.model.service.AverageRatingCalculatorService;
 
-@Data
 public class MovieRepresentation {
 
-    private String id;
-    private String title;
-    private short length;
-    private short release_year;
-    private String description;
-    private String plot_summary;
-    private String plot_synopsis;
-    private List<String> stars      = new ArrayList<>();
-    private List<String> writers    = new ArrayList<>();
-    private List<String> directors  = new ArrayList<>();
-    private List<String> categories = new ArrayList<>();
+    public String id;
+    public String title;
+    public short length;
+    public short release_year;
+    public String description;
+    public String plot_summary;
+    public String plot_synopsis;
+    public List<CastRepresentation> cast            = new ArrayList<>();
+    public List<CrewRepresentation> crew            = new ArrayList<>();
+    public List<CategoryRepresentation> categories  = new ArrayList<>();
 
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    private float average_rating;
+    public float average_rating;
 
     public MovieRepresentation(Movie movie) {
         initializeFrom(movie);
     }
+
+    public MovieRepresentation() {}
 
     public MovieRepresentation(Movie movie, AverageRatingCalculatorService service) {
         initializeFrom(movie);
         average_rating = service.averageRatingFor(movie);
     }
 
-    private void buildCastRelatedFields(List<CastMember> cast) {
-        for (var castMember : cast) {
-            if (castMember.getRole().getName().toLowerCase().equals("star"))
-                stars.add(castMember.getName());
-        }
+    private void buildCategoriesRepresentation(List<Category> attachedCategories) {
+        if (attachedCategories == null)
+            return;
+
+        for (var category : attachedCategories)
+            categories.add(new CategoryRepresentation(category));
     }
 
-    private void buildCategories(List<Category> attachedCategories) {
-        for (var category : attachedCategories) {
-            categories.add(category.getName());
-        }
+    private void buildCastRepresentation(List<CastMember> castMembers) {
+        if (castMembers == null)
+            return;
+
+        for (var castMember : castMembers)
+            cast.add(new CastRepresentation(castMember));
     }
 
-    private void buildCrewRelatedFields(List<CrewMember> crew) {
-        for (var crewMember : crew) {
-            if (crewMember.getRole().getName().toLowerCase().equals("writer"))
-                writers.add(crewMember.getName());
+    private void buildCrewRepresentation(List<CrewMember> crewMembers) {
+        if (crewMembers == null)
+            return;
 
-            if (crewMember.getRole().getName().toLowerCase().equals("director"))
-                directors.add(crewMember.getName());
-        }
+        for (var crewMember : crewMembers)
+            crew.add(new CrewRepresentation(crewMember));
     }
 
     private void initializeFrom(Movie movie) {
@@ -69,9 +71,9 @@ public class MovieRepresentation {
         description     = movie.getDescription();
         release_year    = (short) movie.getReleaseYear().getValue();
 
-        buildCategories(movie.getCategories());
-        buildCastRelatedFields(movie.getCast());
-        buildCrewRelatedFields(movie.getCrew());
+        buildCastRepresentation(movie.getCast());
+        buildCrewRepresentation(movie.getCrew());
+        buildCategoriesRepresentation(movie.getCategories());
     }
 
 }

@@ -1,7 +1,6 @@
 package br.uece.ees.moviesapi.domain.model;
 
 import lombok.Data;
-
 import java.time.Year;
 import java.util.List;
 import javax.persistence.*;
@@ -33,7 +32,6 @@ public class Movie {
 	private String title;
 
 	@NotNull
-	@NotEmpty
 	@Column(name = "length", nullable = false)
 	private short length;
 
@@ -53,7 +51,6 @@ public class Movie {
 	private String description;
 
 	@NotNull
-	@NotEmpty
 	@Convert(converter = YearAttributeConverter.class)
 	@Column(name = "release_year", nullable = false)
 	private Year releaseYear;
@@ -68,7 +65,7 @@ public class Movie {
 
 	@ManyToMany
 	@JoinTable(
-		name = "movies_categories",
+	 	name = "movies_categories",
 		joinColumns = { @JoinColumn(name = "movie_id") },
 		inverseJoinColumns = { @JoinColumn(name = "category_id") }
 	)

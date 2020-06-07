@@ -2,8 +2,13 @@ package br.uece.ees.moviesapi.infrastructure;
 
 import java.util.Collection;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import br.uece.ees.moviesapi.domain.model.Actor;
+import br.uece.ees.moviesapi.domain.model.Category;
 import org.springframework.stereotype.Component;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +32,18 @@ public class ActorRepository implements ActorRepositoryInterface {
 
 	@Override
 	public Actor theOneOf(String name) {
-		return null;
+		var queryBuilder 			= manager.getCriteriaBuilder();
+		CriteriaQuery<Actor> query 	= queryBuilder.createQuery(Actor.class);
+		Root<Actor> actor			= query.from(Actor.class);
+
+		var equal = queryBuilder.equal(actor.get("name"), name);
+		query.select(actor).where(equal);
+
+		var storedActor = manager.createQuery(query).getSingleResult();
+		if (storedActor == null)
+			throw new EntityNotFoundException();
+
+		return storedActor;
 	}
 
 	@Override

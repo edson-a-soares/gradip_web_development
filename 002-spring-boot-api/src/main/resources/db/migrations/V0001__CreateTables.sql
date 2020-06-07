@@ -58,6 +58,7 @@ CREATE TABLE cast_members (
   actor_id  VARCHAR(36) NOT NULL,
   movie_id  VARCHAR(36) NOT NULL,
   role_id   VARCHAR(36) NOT NULL,
+  PRIMARY KEY (actor_id, movie_id, role_id),
   FOREIGN KEY (movie_id) REFERENCES movies (movie_id),
   FOREIGN KEY (actor_id) REFERENCES actors (actor_id),
   FOREIGN KEY (role_id)  REFERENCES acting_roles (role_id)
@@ -67,6 +68,7 @@ CREATE TABLE film_crew_members (
   person_id  VARCHAR(36) NOT NULL,
   movie_id  VARCHAR(36) NOT NULL,
   role_id   VARCHAR(36) NOT NULL,
+  PRIMARY KEY (person_id, movie_id, role_id),
   FOREIGN KEY (movie_id)  REFERENCES movies (movie_id),
   FOREIGN KEY (role_id)   REFERENCES film_crew_roles (role_id),
   FOREIGN KEY (person_id) REFERENCES film_crew_people (person_id)

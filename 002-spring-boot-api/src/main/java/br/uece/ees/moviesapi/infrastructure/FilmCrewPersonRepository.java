@@ -2,7 +2,12 @@ package br.uece.ees.moviesapi.infrastructure;
 
 import java.util.Collection;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import br.uece.ees.moviesapi.domain.model.FilmCrewRole;
 import org.springframework.stereotype.Component;
 import br.uece.ees.moviesapi.domain.model.FilmCrewPerson;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,7 +32,19 @@ public class FilmCrewPersonRepository implements FilmCrewPersonRepositoryInterfa
 
 	@Override
 	public FilmCrewPerson personOf(String name) {
-		return null;
+		var queryBuilder 					= manager.getCriteriaBuilder();
+		CriteriaQuery<FilmCrewPerson> query = queryBuilder.createQuery(FilmCrewPerson.class);
+		Root<FilmCrewPerson> filmCrewPerson	= query.from(FilmCrewPerson.class);
+
+		var equal = queryBuilder.equal(filmCrewPerson.get("name"), name);
+		query.select(filmCrewPerson).where(equal);
+
+		var storedCrewPerson = manager.createQuery(query).getSingleResult();
+		if (storedCrewPerson == null)
+			throw new EntityNotFoundException();
+
+		return storedCrewPerson;
+
 	}
 
 	@Override

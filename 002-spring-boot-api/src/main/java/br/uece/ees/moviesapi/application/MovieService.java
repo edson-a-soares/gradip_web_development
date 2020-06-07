@@ -12,12 +12,14 @@ import br.uece.ees.moviesapi.domain.model.service.AverageRatingCalculatorService
 @Service
 public class MovieService {
 
+    private final MovieAssembler assembler;
     private final MovieRepositoryInterface movies;
     private final AverageRatingCalculatorService averageRatingService;
 
     @Autowired
-    public MovieService(MovieRepositoryInterface repository, AverageRatingCalculatorService service) {
+    public MovieService(MovieRepositoryInterface repository, AverageRatingCalculatorService service, MovieAssembler assembler) {
         movies = repository;
+        this.assembler = assembler;
         averageRatingService = service;
     }
 
@@ -30,11 +32,11 @@ public class MovieService {
     }
 
     public Collection<MovieRepresentation> allMovies() {
-        return MovieAssembler.toRepresentationList(movies.all());
+        return assembler.toRepresentationList(movies.all());
     }
 
     public MovieRepresentation addMovie(MovieRepresentation representation) {
-        var entity = MovieAssembler.toEntity(representation);
+        var entity = assembler.toEntity(representation);
         return new MovieRepresentation(movies.add(entity));
     }
 

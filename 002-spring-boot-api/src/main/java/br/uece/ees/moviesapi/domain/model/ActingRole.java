@@ -32,4 +32,11 @@ public class ActingRole {
 	@Column(name = "role_description")
 	private String description;
 
+	public ActingRole() {}
+
+	public ActingRole(String id, String name) {
+		this.id 	= id;
+		this.name 	= name;
+	}
+
 }

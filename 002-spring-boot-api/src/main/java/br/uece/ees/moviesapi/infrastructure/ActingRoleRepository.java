@@ -2,7 +2,12 @@ package br.uece.ees.moviesapi.infrastructure;
 
 import java.util.Collection;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import br.uece.ees.moviesapi.domain.model.Actor;
 import org.springframework.stereotype.Component;
 import br.uece.ees.moviesapi.domain.model.ActingRole;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,7 +32,18 @@ public class ActingRoleRepository implements ActingRoleRepositoryInterface {
 
 	@Override
 	public ActingRole theOneOf(String name) {
-		return null;
+		var queryBuilder 				= manager.getCriteriaBuilder();
+		CriteriaQuery<ActingRole> query = queryBuilder.createQuery(ActingRole.class);
+		Root<ActingRole> actingRole		= query.from(ActingRole.class);
+
+		var equal = queryBuilder.equal(actingRole.get("name"), name);
+		query.select(actingRole).where(equal);
+
+		var storedRole = manager.createQuery(query).getSingleResult();
+		if (storedRole == null)
+			throw new EntityNotFoundException();
+
+		return storedRole;
 	}
 
 	@Override

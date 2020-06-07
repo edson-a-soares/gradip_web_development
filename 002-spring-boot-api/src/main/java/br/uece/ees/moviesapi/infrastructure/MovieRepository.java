@@ -34,7 +34,6 @@ public class MovieRepository implements MovieRepositoryInterface {
 	@Transactional
 	public Movie add(Movie movie) {
 		return manager.merge(movie);
-
 	}
 
 	@Override

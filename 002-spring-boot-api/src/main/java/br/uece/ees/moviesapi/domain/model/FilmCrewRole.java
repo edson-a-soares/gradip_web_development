@@ -14,6 +14,13 @@ import org.hibernate.annotations.GenericGenerator;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class FilmCrewRole {
 
+	public FilmCrewRole() {}
+
+	public FilmCrewRole(String id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	@Id
 	@Size(max = 36)
 	@EqualsAndHashCode.Include
