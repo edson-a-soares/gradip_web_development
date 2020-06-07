@@ -1,4 +1,27 @@
 -----------------------------------------------------------------
+-- Categories
+-----------------------------------------------------------------
+INSERT INTO
+    categories (category_id, category_name)
+VALUES
+    ('3eb7a17daeef488ca0457e61f117bce4', 'Western'),
+    ('d4050016714e47879b0e037d278024e5', 'Drama'),
+    ('927331a330104b868bb8223b5879e017', 'Comedy'),
+    ('37a4966fb15849c787748e3281cb60fb', 'Sci-Fi'),
+    ('338e53e6f27c4ecdb0d2ad3c6320c4ed', 'Crime'),
+    ('a86afc9fd7c9450cbc23d878f569f015', 'Fantasy'),
+    ('3695a60f99704ba29c7b6877e4a0e9c0', 'Mystery'),
+    ('129ed410c8d14e4995cc72d4dee31b01', 'Thriller'),
+    ('6e70c51d6d124d21948f6438cbe53925', 'Romance'),
+    ('3e4d6bb0bbd0438988f47d70f95966e8', 'Horror'),
+    ('6559d6773ed94d6d97fd622aa96a4f55', 'Family'),
+    ('c847b2747cbb4108985d4eaae567c54d', 'Documentary'),
+    ('5ef06dc906b44aef85d598870f08d9fe', 'Action'),
+    ('a335c04b91cd4b9498f1a36494de6726', 'Adventure'),
+    ('5a4764bde1ba48a2bc169a45cafd9b29', 'War'),
+    ('78450ed2942646a08a9af24fc403dbe2', 'Sport');
+
+-----------------------------------------------------------------
 -- Actors
 -----------------------------------------------------------------
 INSERT INTO
@@ -71,6 +94,15 @@ VALUES
     ('be49c6de0761401bad9dbae17c0f8327', 'Venom', '90', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae illo inventore.', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit sed.', 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.', 2018),
     ('9bec3337dea24f768e3e8240645f7b1f', 'The Devils Advocate', '85', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae illo inventore.', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit sed.', 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.', 1997),
     ('8fc13ddddc6e4b0490f3ab77ef73e9f2', 'The Bone Collector', '100', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae illo inventore.', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit sed.', 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.', 1999);
+
+-----------------------------------------------------------------
+-- Categories associated with movies
+-----------------------------------------------------------------
+INSERT INTO
+    movies_categories (category_id, movie_id)
+VALUES
+    ('5ef06dc906b44aef85d598870f08d9fe', '41dad570130f4397af9cbd9a525c129a'),
+    ('a335c04b91cd4b9498f1a36494de6726', '41dad570130f4397af9cbd9a525c129a');
 
 -----------------------------------------------------------------
 -- Cast Members

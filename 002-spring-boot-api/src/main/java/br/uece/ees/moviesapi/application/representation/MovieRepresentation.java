@@ -1,5 +1,6 @@
 package br.uece.ees.moviesapi.application.representation;
 
+import br.uece.ees.moviesapi.domain.model.Category;
 import lombok.Data;
 import java.util.List;
 import java.util.ArrayList;
@@ -43,6 +44,12 @@ public class MovieRepresentation {
         }
     }
 
+    private void buildCategories(List<Category> attachedCategories) {
+        for (var category : attachedCategories) {
+            categories.add(category.getName());
+        }
+    }
+
     private void buildCrewRelatedFields(List<CrewMember> crew) {
         for (var crewMember : crew) {
             if (crewMember.getRole().getName().toLowerCase().equals("writer"))
@@ -62,6 +69,7 @@ public class MovieRepresentation {
         description     = movie.getDescription();
         release_year    = (short) movie.getReleaseYear().getValue();
 
+        buildCategories(movie.getCategories());
         buildCastRelatedFields(movie.getCast());
         buildCrewRelatedFields(movie.getCrew());
     }

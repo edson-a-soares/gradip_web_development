@@ -10,6 +10,20 @@ CREATE TABLE movies (
   PRIMARY KEY (movie_id)
 );
 
+CREATE TABLE categories (
+  category_id    VARCHAR(36) NOT NULL,
+  category_name  VARCHAR(40) NOT NULL,
+  PRIMARY KEY (category_id),
+  UNIQUE(category_name)
+);
+
+CREATE TABLE movies_categories (
+  movie_id      VARCHAR(36) NOT NULL,
+  category_id   VARCHAR(36) NOT NULL,
+  FOREIGN KEY (movie_id) REFERENCES movies (movie_id),
+  FOREIGN KEY (category_id)  REFERENCES categories (category_id)
+);
+
 CREATE TABLE actors (
   actor_id    VARCHAR(36) NOT NULL,
   actor_name  VARCHAR(25) NOT NULL,
