@@ -1,11 +1,11 @@
-import React from 'react';
 import Rating from 'react-rating';
 import Error from "../Common/Error";
 import {Link} from "react-router-dom";
 import Preloader from "../Common/Preloader";
+import React, {useState, useEffect} from 'react';
+import MoviesRepository from "./MoviesRepository";
 import ReviewingForm from "../Reviews/ReviewingForm";
 import CommentsSection from "../Reviews/CommentsSection";
-import useFetch from "../../hooks/useFetch";
 
 
 const Figure = ({ file }) =>
@@ -25,7 +25,15 @@ const PlotSynopsis = ({ text }) =>
 
 
 const SingleMoviePage = (Figure, PlotSummary, PlotSynopsis, {movieId}) => {
-    const [movie, isLoading, error] = useFetch(`/movies/${movieId}`);
+
+    const [movie, setMovie]       = useState({});
+    const [error, setError]       = useState(null);
+    const [isLoading, setLoading] = useState(false);
+
+    useEffect(() => {
+        MoviesRepository.fetchOne(setMovie, setError, setLoading, {movieId});
+    }, [movieId]);
+
     return error ? <Error message={error} /> :
         isLoading ? <Preloader /> :
             <div>
@@ -111,7 +119,7 @@ const SingleMoviePage = (Figure, PlotSummary, PlotSynopsis, {movieId}) => {
                     </div>
                     <PlotSynopsis text={movie.plot_synopsis}/>
                     <hr/>
-                    <ReviewingForm/>
+                    <ReviewingForm movieId={movieId}/>
                     <hr/>
                     <CommentsSection movieId={movieId}/>
                 </div>

@@ -1,17 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Rating from "react-rating";
 import Error from "../Common/Error";
 import Preloader from "../Common/Preloader";
-import useFetch from "../../hooks/useFetch";
-
+import ReviewsRepository from "../Reviews/ReviewsRepository";
 
 const CommentsSection = ({ movieId }) => {
-    const [reviews, isLoading, error] = useFetch(`/movies/${movieId}/reviews`);
+
+    const [data, setData]         = useState([]);
+    const [error, setError]       = useState(null);
+    const [isLoading, setLoading] = useState(false);
+
+    useEffect(() => {
+        ReviewsRepository.all(setData, setError, setLoading, {movieId});
+    }, [movieId]);
+
     return <div>
     {
         error ? <Error message={error} /> :
             isLoading ? <Preloader /> :
-                reviews.map((review, index) => {
+                data.map((review, index) => {
                     return <div key={index} className="row align-items-center">
                         <div className="col-md-2"></div>
                         <div className="col-md-10">

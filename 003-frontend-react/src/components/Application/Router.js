@@ -5,8 +5,8 @@ import {
     Switch,
     useParams
 } from 'react-router-dom';
-import MovieCardsList from "../Movies";
 import PageNotFound from "../Site/PageNotFound";
+import MovieCardsList from "../Movies/MoviesList";
 import LayoutContainer from "../Site/LayoutContainer";
 import SingleMoviePage from "../Movies/SingleMoviePage";
 
