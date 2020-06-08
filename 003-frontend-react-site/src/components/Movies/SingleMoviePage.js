@@ -69,7 +69,7 @@ const SingleMoviePage = (Figure, PlotSummary, PlotSynopsis, {movieId}) => {
                                         (Array.isArray(movie.categories) && movie.categories.length)
                                             ?
                                                 movie.categories.map(function (item, index) {
-                                                    return (index ? '/' : '') + item;
+                                                    return (index ? '/' : '') + item.name;
                                                 })
                                             :
                                                 ''
@@ -79,37 +79,25 @@ const SingleMoviePage = (Figure, PlotSummary, PlotSynopsis, {movieId}) => {
 
                             <ul className="starring">
                                 <li>
-                                    <strong>Directors: </strong>
+                                    <strong>Cast: </strong>
                                     {
-                                        (Array.isArray(movie.directors) && movie.directors.length)
+                                        (Array.isArray(movie.cast) && movie.cast.length)
                                             ?
-                                                movie.directors.map(function (item, index) {
-                                                    return (index ? ', ' : '') + item;
+                                                movie.cast.map(function (item, index) {
+                                                    return (index ? ', ' : '') + item.actor_name + ` (${item.role_name})`;
                                                 })
                                             :
                                                 ''
                                     }
                                 </li>
                                 <li>
-                                    <strong>Writers: </strong>
+                                    <strong>Crew: </strong>
                                     {
-                                        (Array.isArray(movie.writers) && movie.writers.length)
+                                        (Array.isArray(movie.crew) && movie.crew.length)
                                             ?
-                                                movie.writers.map(function (item, index) {
-                                                    return (index ? ', ' : '') + item;
+                                                movie.crew.map(function (item, index) {
+                                                    return (index ? ', ' : '') + item.person_name + ` (${item.role_name})`;
                                                  })
-                                            :
-                                                ''
-                                    }
-                                </li>
-                                <li>
-                                    <strong>Stars: </strong>
-                                    {
-                                        (Array.isArray(movie.stars) && movie.stars.length)
-                                            ?
-                                                movie.stars.map(function (item, index) {
-                                                    return (index ? ', ' : '') + item;
-                                                })
                                             :
                                                 ''
                                     }
