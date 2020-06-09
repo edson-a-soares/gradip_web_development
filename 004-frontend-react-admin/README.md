@@ -1,6 +1,6 @@
 ## React JS Movies Website Admin
 
-This is the management application of the [movies website](../003-frontend-react-admin). It manages the website by consuming the [movies API](../004-spring-boot-api).
+This is the management application of the [movies website](../003-frontend-react-admin). It manages the website by consuming the [movies API](../002-spring-boot-api).
 
 To access the application, just do as follows:
 
