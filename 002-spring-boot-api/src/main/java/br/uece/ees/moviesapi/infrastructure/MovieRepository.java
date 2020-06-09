@@ -26,11 +26,6 @@ public class MovieRepository implements MovieRepositoryInterface {
 	}
 
 	@Override
-	public Movie theOneOf(String name) {
-		return null;
-	}
-
-	@Override
 	@Transactional
 	public Movie add(Movie movie) {
 		return manager.merge(movie);

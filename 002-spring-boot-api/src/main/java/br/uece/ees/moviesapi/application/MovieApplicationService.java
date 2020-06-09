@@ -10,14 +10,14 @@ import br.uece.ees.moviesapi.domain.model.repository.MovieRepositoryInterface;
 import br.uece.ees.moviesapi.domain.model.service.AverageRatingCalculatorService;
 
 @Service
-public class MovieService {
+public class MovieApplicationService {
 
     private final MovieAssembler assembler;
     private final MovieRepositoryInterface movies;
     private final AverageRatingCalculatorService averageRatingService;
 
     @Autowired
-    public MovieService(MovieRepositoryInterface repository, AverageRatingCalculatorService service, MovieAssembler assembler) {
+    public MovieApplicationService(MovieRepositoryInterface repository, AverageRatingCalculatorService service, MovieAssembler assembler) {
         movies = repository;
         this.assembler = assembler;
         averageRatingService = service;

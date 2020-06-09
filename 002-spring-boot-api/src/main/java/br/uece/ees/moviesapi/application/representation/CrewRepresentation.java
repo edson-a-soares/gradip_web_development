@@ -1,8 +1,9 @@
 package br.uece.ees.moviesapi.application.representation;
 
+import java.io.Serializable;
 import br.uece.ees.moviesapi.domain.model.CrewMember;
 
-public class CrewRepresentation {
+public class CrewRepresentation implements Serializable {
 
     public String role_id;
     public String person_id;

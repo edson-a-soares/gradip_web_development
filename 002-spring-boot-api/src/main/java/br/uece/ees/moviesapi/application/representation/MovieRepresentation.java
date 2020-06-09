@@ -2,16 +2,15 @@ package br.uece.ees.moviesapi.application.representation;
 
 import java.util.List;
 import java.util.ArrayList;
-
-import br.uece.ees.moviesapi.domain.model.CastMember;
+import java.io.Serializable;
 import br.uece.ees.moviesapi.domain.model.Movie;
 import br.uece.ees.moviesapi.domain.model.Category;
 import com.fasterxml.jackson.annotation.JsonInclude;
-// import br.uece.ees.moviesapi.domain.model.CastMember;
+import br.uece.ees.moviesapi.domain.model.CastMember;
 import br.uece.ees.moviesapi.domain.model.CrewMember;
 import br.uece.ees.moviesapi.domain.model.service.AverageRatingCalculatorService;
 
-public class MovieRepresentation {
+public class MovieRepresentation implements Serializable {
 
     public String id;
     public String title;

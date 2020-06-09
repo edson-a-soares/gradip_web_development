@@ -9,6 +9,5 @@ public interface MovieRepositoryInterface {
 	Movie add(Movie movie);
 	Collection<Movie> all();
 	Movie theOneWith(String id);
-	Movie theOneOf(String name);
 
 }

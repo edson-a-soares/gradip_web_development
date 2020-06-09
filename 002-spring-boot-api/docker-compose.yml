@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
 
   pgadmin:
-    container_name: pgadmin_instance
+    container_name: spring-movies-pgadmin_instance
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}

@@ -2,7 +2,9 @@ package br.uece.ees.moviesapi.application.representation;
 
 import br.uece.ees.moviesapi.domain.model.CastMember;
 
-public class CastRepresentation {
+import java.io.Serializable;
+
+public class CastRepresentation implements Serializable {
 
     public String role_id;
     public String actor_id;
