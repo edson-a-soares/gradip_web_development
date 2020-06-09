@@ -10,7 +10,7 @@ To make the application available, just do as follows:
 1. [x] Application compilation, building, and packaging:  
 	- ```mvn package```
 2. [x] Infrastructure (pgAdmin & postgres)
-	- ```docker-compose up -d```
+	- ```docker-compose up -d```     
 	2.1 Data Scheme (tables):  
     Flyway will create everything during the application initialization. 
 3. Run the application (with Java 14):
@@ -30,6 +30,8 @@ To make the application available, just do as follows:
 
 ****
 #### Data Access
+
+![database schema](docs/database/EER-Diagram.png)
 
 If you want to follow straight on **Postgres**, you can use **PgAdmin**.  
 
