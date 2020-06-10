@@ -7,12 +7,12 @@ import MoviesRepository from "./MoviesRepository";
 const Add = () => {
 
     const [data, setData] = useState({
-        title : "",
-        length : "",
-        description : "",
-        release_year : "",
-        plot_summary : "",
-        plot_synopsis : "",
+        title : '',
+        length : '',
+        description : '',
+        release_year : '',
+        plot_summary : '',
+        plot_synopsis : '',
         cast: [],
         crew: [],
         categories: []
@@ -20,9 +20,7 @@ const Add = () => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log('Adding a new movie ...');
-        console.log(data);
-
+        console.log(JSON.stringify(data))
         MoviesRepository.add(response => {
             console.log('Response ...');
             console.log(response);

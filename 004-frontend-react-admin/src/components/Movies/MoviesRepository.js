@@ -6,7 +6,9 @@ const MoviesRepository = {
         fetch(Application.getURL('/movies'), {
             method : 'POST',
             headers : Application.getHeaders(),
-            body: JSON.stringify(data.payload)
+            body: JSON.parse(
+                JSON.stringify(data)
+            )
         })
             .then((response) => response.json())
             .then((response) => onSuccess(response))

@@ -36,8 +36,8 @@ const CrewComponent = (params) => {
     const [error, setError]             = useState(null);
     const [isLoading, setLoading]       = useState(false);
     const [crewMembers, setCrewMember]  = useState([
-            { "role_id": "", "person_id": "", "role_name": "", "person_name": "" },
-            { "role_id": "", "person_id": "", "role_name": "", "person_name": "" }
+            { "role_id": '', "person_id": '', "role_name": '', "person_name": '' },
+            { "role_id": '', "person_id": '', "role_name": '', "person_name": '' }
         ]);
 
     useEffect(() => {

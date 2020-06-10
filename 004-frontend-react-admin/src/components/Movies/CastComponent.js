@@ -36,8 +36,8 @@ const CastComponent = (params) => {
     const [error, setError]             = useState(null);
     const [isLoading, setLoading]       = useState(false);
     const [castMembers, setCastMember]  = useState([
-            { "role_id": "", "actor_id": "", "role_name": "", "actor_name": "" },
-            { "role_id": "", "actor_id": "", "role_name": "", "actor_name": "" }
+            { "role_id": '', "actor_id": '', "role_name": '', "actor_name": '' },
+            { "role_id": '', "actor_id": '', "role_name": '', "actor_name": '' }
         ]);
 
     useEffect(() => {
@@ -46,7 +46,7 @@ const CastComponent = (params) => {
     }, []);
 
     const addCastMember = () => {
-        setCastMember([...castMembers, { "role_id": "", "actor_id": "", "role_name": "", "actor_name": "" }]);
+        setCastMember([...castMembers, { "role_id": '', "actor_id": '', "role_name": '', "actor_name": '' }]);
     }
 
     const removeCastMember = index => {
