@@ -7,12 +7,12 @@ import MoviesRepository from "./MoviesRepository";
 const Add = () => {
 
     const [data, setData] = useState({
-        title : '',
-        length : '',
-        description : '',
-        release_year : '',
-        plot_summary : '',
-        plot_synopsis : '',
+        title: '',
+        length: '',
+        release_year: '',
+        description: '',
+        plot_summary: '',
+        plot_synopsis: '',
         cast: [],
         crew: [],
         categories: []
@@ -20,9 +20,7 @@ const Add = () => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(JSON.stringify(data))
         MoviesRepository.add(response => {
-            console.log('Response ...');
             console.log(response);
         }, data);
     }
@@ -46,6 +44,7 @@ const Add = () => {
                 <input
                     id="title"
                     type="text"
+                    required
                     value={data.title}
                     className="form-control"
                     placeholder="Type the movie title"
@@ -60,6 +59,7 @@ const Add = () => {
                 <input
                     id="length"
                     type="text"
+                    required
                     value={data.length}
                     className="form-control"
                     placeholder="Time in minutes."
@@ -73,6 +73,7 @@ const Add = () => {
                 <textarea
                     rows="5"
                     id="summary"
+                    required
                     className="form-control"
                     value={data.plot_summary}
                     placeholder="Write the summary of the movie page."
@@ -83,6 +84,7 @@ const Add = () => {
                 <label htmlFor="description">Description</label>
                 <textarea
                     rows="5"
+                    required
                     id="description"
                     value={data.description}
                     className="form-control"
@@ -93,11 +95,12 @@ const Add = () => {
             <div className="form-group col-md-2">
                 <label htmlFor="release_year">Release Year</label>
                 <input
-                    id="release_year"
                     type="text"
-                    value={data.release_year}
-                    className="form-control"
+                    required
+                    id="release_year"
                     placeholder="0000"
+                    className="form-control"
+                    value={data.release_year}
                     onChange={e => handleChanges("release_year", e.target.value)}
                 />
             </div>
@@ -107,6 +110,7 @@ const Add = () => {
             <textarea
                 rows="5"
                 id="synopsis"
+                required
                 className="form-control"
                 value={data.plot_synopsis}
                 placeholder="Write the main text of the movie page."

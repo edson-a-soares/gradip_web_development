@@ -36,8 +36,8 @@ const CastComponent = (params) => {
     const [error, setError]             = useState(null);
     const [isLoading, setLoading]       = useState(false);
     const [castMembers, setCastMember]  = useState([
-            { "role_id": '', "actor_id": '', "role_name": '', "actor_name": '' },
-            { "role_id": '', "actor_id": '', "role_name": '', "actor_name": '' }
+            { role_id: '', "actor_id": '', role_name: '', actor_name: '' },
+            { role_id: '', "actor_id": '', role_name: '', actor_name: '' }
         ]);
 
     useEffect(() => {
@@ -46,13 +46,13 @@ const CastComponent = (params) => {
     }, []);
 
     const addCastMember = () => {
-        setCastMember([...castMembers, { "role_id": '', "actor_id": '', "role_name": '', "actor_name": '' }]);
+        setCastMember([...castMembers, { role_id: '', actor_id: '', role_name: '', actor_name: '' }]);
     }
 
     const removeCastMember = index => {
         const filtered = castMembers.filter((value, key) => key !== index);
         setCastMember(filtered);
-        params.onChange(filtered);
+        updateMainPayload();
     }
 
     const updateMainPayload = () => {
@@ -74,7 +74,7 @@ const CastComponent = (params) => {
 
         member.role_id   = selectedOption.value;
         member.role_name = selectedOption.text;
-        params.onChange(castMembers);
+        updateMainPayload();
     }
 
     return <div id="cast_container">

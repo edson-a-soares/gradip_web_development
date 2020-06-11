@@ -36,8 +36,8 @@ const CrewComponent = (params) => {
     const [error, setError]             = useState(null);
     const [isLoading, setLoading]       = useState(false);
     const [crewMembers, setCrewMember]  = useState([
-            { "role_id": '', "person_id": '', "role_name": '', "person_name": '' },
-            { "role_id": '', "person_id": '', "role_name": '', "person_name": '' }
+            { role_id: '', person_id: '', role_name: '', person_name: '' },
+            { role_id: '', person_id: '', role_name: '', person_name: '' }
         ]);
 
     useEffect(() => {
@@ -46,13 +46,13 @@ const CrewComponent = (params) => {
     }, []);
 
     const addCrewMember = () => {
-        setCrewMember([...crewMembers, { "role_id": "", "person_id": "", "role_name": "", "person_name": "" }]);
+        setCrewMember([...crewMembers, { role_id:  '', person_id: '', role_name: '', person_name: '' }]);
     }
 
     const removeCastMember = index => {
         const filtered = crewMembers.filter((value, key) => key !== index);
         setCrewMember(filtered);
-        params.onChange(filtered);
+        updateMainPayload();
     }
 
     const updateMainPayload = () => {

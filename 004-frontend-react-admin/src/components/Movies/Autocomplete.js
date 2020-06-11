@@ -138,6 +138,7 @@ const Autocomplete = ({handlers, options}) => {
                 <input
                     id="0"
                     type="text"
+                    required
                     className="form-control"
                     placeholder="Search for ..."
                     value={searchResults.userInput}
