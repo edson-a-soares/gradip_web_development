@@ -22,7 +22,7 @@ To make the application available just do as follows:
 
 If you want to follow straight on **Postgres**, you can use **PgAdmin**.  
 
- - ```docker-compose up pgamin -d```
+ - ```docker-compose up -d pgamin```
 
 ###### PgAdmin  
  - [PgAdmin4 Address](http://localhost:5050)   
