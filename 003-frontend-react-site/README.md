@@ -1,4 +1,4 @@
-## React JS Movies Web Site
+## React JS Movies Website
 
 This is the frontend application of the [movies API](../002-spring-boot-api), 
 and it's managed from the [movies site admin](../004-frontend-react-admin).
