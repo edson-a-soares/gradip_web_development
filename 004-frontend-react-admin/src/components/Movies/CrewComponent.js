@@ -67,6 +67,14 @@ const CrewComponent = (params) => {
        updateMainPayload();
     }
 
+    const onSelectLoading = role => {
+        for (const member of crewMembers) {
+            member.role_id   = role.id;
+            member.role_name = role.name;
+        }
+        updateMainPayload();
+    }
+
     const updatePayloadOnSelectOption = event => {
         event.preventDefault();
         const selectedOption   = event.target.selectedOptions.item(0);
@@ -86,7 +94,12 @@ const CrewComponent = (params) => {
                 {
                     error ? 'Refresh the page, please.'  :
                         isLoading ? 'Loading roles ...' :
-                            roles.map(role => <option key={role.id} value={role.id}>{role.name}</option>)
+                            roles.map((role, index) => {
+                                if (index === 0)
+                                    onSelectLoading(role);
+
+                                return <option key={role.id} value={role.id}>{role.name}</option>
+                            })
                 }
             </select>
             <Autocomplete options={crewPeople} handlers={{onInputChange}} />

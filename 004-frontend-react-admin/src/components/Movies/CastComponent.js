@@ -67,6 +67,14 @@ const CastComponent = (params) => {
         updateMainPayload();
     }
 
+    const onSelectLoading = role => {
+        for (const member of castMembers) {
+            member.role_id   = role.id;
+            member.role_name = role.name;
+        }
+        updateMainPayload();
+    }
+
     const updatePayloadOnSelectOption = event => {
         event.preventDefault();
         const selectedOption   = event.target.selectedOptions.item(0);
@@ -82,11 +90,16 @@ const CastComponent = (params) => {
             <div className="input-group-prepend">
                 <button type="button" className="btn btn-outline-info" onClick={addCastMember}>Add member</button>
             </div>
-            <select className="custom-select" id="0" onChange={event => updatePayloadOnSelectOption(event)}>
+            <select className="custom-select" id="0" onChange={event => updatePayloadOnSelectOption(event)} onLoad={onSelectLoading}>
                 {
                     error ? 'Refresh the page, please.'  :
                         isLoading ? 'Loading roles ...' :
-                            roles.map(role => <option key={role.id} value={role.id}>{role.name}</option>)
+                            roles.map((role, index) => {
+                                if (index === 0)
+                                    onSelectLoading(role);
+
+                                return <option key={role.id} value={role.id}>{role.name}</option>
+                            })
                 }
             </select>
             <Autocomplete options={actors} handlers={{onInputChange}} />
