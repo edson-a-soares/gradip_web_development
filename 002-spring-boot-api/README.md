@@ -10,7 +10,7 @@ To make the application available, just do as follows:
 ---
 **NOTE**
 
-```For just running the application, do it within a Docker container. Jump straight to the item 3.2 to se how.```
+```For just running the application, do it within a Docker container. Jump straight to the item 3.2 to see how.```
 
 ---
 
@@ -23,7 +23,7 @@ To make the application available, just do as follows:
 3. Run the application:    
     1. Standalone (with Java 14)
         - ```java -jar target/spring-movies-api-1.0.jar ```  
-    2. Withing a Docker container
+    2. Within a Docker container (no dependencies needed)
         - ```docker-compose up -d webapp```    
 4. [Open the application on your browser.](http://localhost:8080/)
     - The root resource lists all available resources.
